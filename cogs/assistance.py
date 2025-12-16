@@ -258,13 +258,13 @@ class Assistance(commands.GroupCog):
     @commands.command(hidden=True)
     async def ot(self, ctx: GuildContext):
         """Reminds user where they are. (4) Helper+ only"""
-        await self.send_channel_warn(ctx, self.bot.channels['off-topic'])
+        await self.send_channel_warn(ctx, self.bot.channels['general'])
 
     @commands.guild_only()
     @commands.command(hidden=True)
     async def pretendo(self, ctx: GuildContext):
         """information about pretendo so people stop asking"""
-        await ctx.send("You are in the Nintendo Homebrew Discord server. We have **no official affiliation** with Pretendo.\n"
+        await ctx.send(f"You are in the {ctx.guild.name} Discord server. We have **no official affiliation** with Pretendo.\n"
                        "There are no Pretendo staff members here. We do not know how to get you unbanned. Ban appeals should be directed [here](<https://forum.pretendo.network>).\n"
                        "The Pretendo Discord server is located [here](<https://discord.gg/DThgbba>). Detailed instructions for installing Pretendo can be found [here](<https://pretendo.network/docs/install>).")
 

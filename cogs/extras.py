@@ -144,14 +144,14 @@ class Extras(commands.GroupCog):
         '''
         await ctx.send(inspect.cleandoc(msg))
 
-    @commands.command(aliases=['about'])
-    async def kurisu(self, ctx: KurisuContext):
-        """About Kurisu"""
-        embed = discord.Embed(title="Kurisu", color=discord.Color.green())
-        embed.set_author(name="Maintained by Nintendo Homebrew helpers and staff")
+    @commands.command(aliases=['about', 'kurisu'])
+    async def aurisu(self, ctx: KurisuContext):
+        """About Aurisu"""
+        embed = discord.Embed(title="Aurisu", color=discord.Color.green())
+        embed.set_author(name=f"Maintained by {self.bot.guild.name} helpers and staff")
         embed.set_thumbnail(url="https://nintendohomebrew.com/assets/img/nhmemes/kurisu.jpg")
-        embed.url = "https://github.com/nh-server/Kurisu"
-        embed.description = "Kurisu, the Nintendo Homebrew Discord bot!"
+        embed.url = "https://github.com/Aeplet/Aurisu"
+        embed.description = f"Aurisu, the {self.bot.guild.name} Discord bot!"
         await ctx.send(embed=embed)
 
     @commands.guild_only()
@@ -356,11 +356,11 @@ class Extras(commands.GroupCog):
 
     @commands.guild_only()
     @commands.hybrid_command(hidden=True)
-    async def togglechannel(self, ctx: GuildContext, channel_name: str):
-        """Enable or disable access to specific channels.
+    async def iam(self, ctx: GuildContext, role_name: str):
+        """Enable or disable specific roles.
 
         Args:
-            channel_name: Name of the channel to toggle.
+            role_name: Name of the role to toggle.
         """
 
         if not ctx.interaction:
@@ -369,28 +369,24 @@ class Extras(commands.GroupCog):
         author = ctx.author
 
         if not ctx.interaction and ctx.channel != self.bot.channels['bot-cmds']:
-            return await ctx.send(f"{ctx.author.mention}: .togglechannel can only be used in {self.bot.channels['bot-cmds'].mention}.", delete_after=10)
+            return await ctx.send(f"{ctx.author.mention}: .iam can only be used in {self.bot.channels['bot-cmds'].mention}.", delete_after=10)
 
-        if channel_name == "elsewhere":
-            if self.bot.roles['#elsewhere'] in author.roles:
-                await author.remove_roles(self.bot.roles['#elsewhere'])
-                await ctx.send("Access to #elsewhere removed.", ephemeral=True, delete_after=10)
-            elif self.bot.roles['No-elsewhere'] not in author.roles:
-                await author.add_roles(self.bot.roles['#elsewhere'])
-                await ctx.send("Access to #elsewhere granted.", ephemeral=True, delete_after=10)
+        if role_name == "Announcement":
+            if self.bot.roles['Announcement'] in author.roles:
+                await author.remove_roles(self.bot.roles['Announcement'])
+                await ctx.send("Announcement removed.", ephemeral=True, delete_after=10)
             else:
-                await send_dm_message(ctx.author, "Your access to elsewhere is restricted, contact staff to remove it.")
-        elif channel_name == "artswhere":
-            if self.bot.roles['#art-discussion'] in author.roles:
-                await author.remove_roles(self.bot.roles['#art-discussion'])
-                await ctx.send("Access to #art-discussion removed.", ephemeral=True, delete_after=10)
-            elif self.bot.roles['No-art'] not in author.roles:
-                await author.add_roles(self.bot.roles['#art-discussion'])
-                await ctx.send("Access to #art-discussion granted.", ephemeral=True, delete_after=10)
+                await author.add_roles(self.bot.roles['Announcement'])
+                await ctx.send("Announcement granted.", ephemeral=True, delete_after=10)
+        elif role_name == "VoiceChat":
+            if self.bot.roles['VoiceChat'] in author.roles:
+                await author.remove_roles(self.bot.roles['VoiceChat'])
+                await ctx.send("VoiceChat removed.", ephemeral=True, delete_after=10)
             else:
-                await ctx.send("Your access to #art-discussion is restricted, contact staff to remove it.", ephemeral=True, delete_after=10)
+                await author.add_roles(self.bot.roles['VoiceChat'])
+                await ctx.send("VoiceChat granted.", ephemeral=True, delete_after=10)
         else:
-            await ctx.send(f"{channel_name} is not a valid toggleable channel.", ephemeral=True, delete_after=10)
+            await ctx.send(f"{role_name} is not a valid toggleable role.", ephemeral=True, delete_after=10)
 
     def check_message(self, message: discord.Message, author) -> Optional[str]:
 

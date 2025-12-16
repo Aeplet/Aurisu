@@ -59,7 +59,7 @@ class BaseView(View):
 
     async def on_error(self, interaction: Interaction, error: Exception, item):
         embed = create_error_embed(interaction, error)
-        await interaction.client.channels['bot-err'].send(embed=embed)
+        await interaction.client.channels['bot-error'].send(embed=embed)
 
 
 class BasePaginatedView(BaseView):
@@ -167,4 +167,4 @@ class BaseLayoutView(ui.LayoutView):
 
     async def on_error(self, interaction: Interaction, error: Exception, item):
         embed = create_error_embed(interaction, error)
-        await interaction.client.channels['bot-err'].send(embed=embed)
+        await interaction.client.channels['bot-error'].send(embed=embed)

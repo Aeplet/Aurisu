@@ -126,7 +126,7 @@ class ModWarn(commands.GroupCog):
             await interaction.response.send_message("A user can't have more than 5 warns!", ephemeral=True)
             return
 
-        warn_type = WarnType.Pinned if pinned else WarnType.Ephemeral
+        warn_type = WarnType.Pinned.value if pinned else WarnType.Ephemeral.value
 
         for _ in range(warn_number):
             _, count = await self.bot.warns.add_warning(member, issuer, reason, do_action=False, send_dm=False, warn_type=warn_type)
@@ -168,7 +168,7 @@ class ModWarn(commands.GroupCog):
             await ctx.send("A user can't have more than 5 warns!")
             return
 
-        warn_id, count = await self.bot.warns.add_warning(member, issuer, reason, warn_type=WarnType.Pinned)
+        warn_id, count = await self.bot.warns.add_warning(member, issuer, reason, warn_type=WarnType.Pinned.value)
 
         await ctx.send(f"{member} warned. User has {count} warning(s)")
         msg = f"⚠️ **Warned**: {issuer.mention} warned {member.mention} in {channel.mention} ({self.bot.escape_text(channel)}) (warn #{count}) | {self.bot.escape_text(member)}"
@@ -202,7 +202,7 @@ class ModWarn(commands.GroupCog):
             if show_issuer:
                 value += f"Issuer: {issuer.name if issuer else warn.issuer_id}\n"
             value += f"Reason: {warn.reason}"
-            if warn.type == WarnType.Ephemeral:
+            if warn.deletion_time:
                 value += f"\nExpires: {format_dt(warn.date + WARN_EXPIRATION)}"
             embed.add_field(
                 name=f"{idx + 1}: {warn.date:%Y-%m-%d %H:%M:%S}",

@@ -98,7 +98,7 @@ typed the error code in correctly? {REPORT_DETAILS}')
 NO_RESULTS_FOUND = ResultInfo(f'I know about this module, but I don\'t have any \
 information on error codes for it. {REPORT_DETAILS}')
 
-BANNED_FIELD = ConsoleErrorField('Console, account and game bans', message_str='Nintendo Homebrew does not provide support \
+BANNED_FIELD = ConsoleErrorField('Console, account and game bans', message_str='Aeps Insights does not provide support \
 for unbanning. Please do not ask for further assistance with this.')
 
 WARNING_COLOR = 0xFFFF00

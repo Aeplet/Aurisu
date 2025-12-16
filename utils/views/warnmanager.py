@@ -98,7 +98,8 @@ class WarnManagerView(BaseLayoutView):
             self.container.add_item(ui.Separator(spacing=discord.SeparatorSpacing.small))
             self.container.add_item(self.warn_buttons)
         else:
-            self.container.children = self.container.children[:2]
+            for item in list(self.container.children[2:]):
+                self.container.remove_item(item)
             await self.init()
             self.container.add_item(section)
             self.container.add_item(ui.Separator(spacing=discord.SeparatorSpacing.small))

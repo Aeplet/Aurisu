@@ -56,7 +56,7 @@ class KickBan(commands.GroupCog):
         msg = f"You were kicked from {ctx.guild.name}."
         if reason:
             msg += " The given reason is: " + reason
-        msg += "\n\nYou are able to rejoin the server, but please read the rules in #welcome-and-rules before participating again."
+        msg += "\n\nYou are able to rejoin the server, but please read the rules in #rules before participating again."
         await send_dm_message(member, msg, ctx)
         try:
             await member.kick(reason=reason)
@@ -342,7 +342,7 @@ class KickBan(commands.GroupCog):
         else:
             await self.filters.add_filtered_word(site, FilterKind.ScammingSite)
             await self.bot.channels['mod-logs'].send(f"🆕 **Added**: {ctx.author.mention} added `{site}` to the word filter!")
-        ban_msg = ("You have been banned from Nintendo Homebrew for linking scamming sites in the server."
+        ban_msg = (f"You have been banned from {ctx.guild.name} for linking scamming sites in the server."
                    "If/when you have secured your account, contact frozenchen on discord or send an email to staff@nintendohomebrew.com")
         await send_dm_message(member, ban_msg)
         reason = "Linking scamming site"

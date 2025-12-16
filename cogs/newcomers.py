@@ -102,8 +102,8 @@ class Newcomers(commands.Cog):
     @commands.guild_only()
     @commands.command(aliases=['ready'], cooldown=commands.CooldownMapping.from_cooldown(rate=1, per=300.0, type=commands.BucketType.member))
     async def ncready(self, ctx: GuildContext, *, reason: str = ""):
-        """Alerts online staff to a ready request in newcomers."""
-        newcomers = self.bot.channels['newcomers']
+        """Alerts online staff to a ready request in probation."""
+        newcomers = self.bot.channels['probation']
         reason = reason[:300]  # truncate to 300 chars so kurisu doesn't send absurdly huge messages
         reason = re.sub(r'[^\x20-\x5b\x5d-\x7f]', r'', reason)  # filter out non-ascii and backslash
         reason = discord.utils.escape_mentions(reason)  # remove all other mentions, in case escaping tricks are attempted

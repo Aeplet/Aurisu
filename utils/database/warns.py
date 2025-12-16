@@ -81,15 +81,15 @@ class WarnsDatabaseManager(BaseDatabaseManager, tables=tables):
                         query, user_id):
                     yield DeletedWarnEntry(*record)
 
-    async def get_warning(self, warn_id: int) -> 'Optional[ValidWarnEntry|DeletedWarnEntry]':
-        """Get a specific warning based on warn id."""
+    async def get_warning(self, warn_id: int):
         res = await self._select_one('warns', id=warn_id)
         if res is None:
-            return res
-        if res['state'] != 0:
-            return DeletedWarnEntry(*res)
-        else:
-            return ValidWarnEntry(*res)
+            return None
+        state = res['state'] or 0
+        if state != 0:
+            return DeletedWarnEntry(*tuple(res))
+        return ValidWarnEntry(*tuple(res))
+
 
     async def get_warnings_count(self, user_id: int) -> int:
         """Get a specific warning based on warn id."""

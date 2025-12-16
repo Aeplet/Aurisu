@@ -26,13 +26,9 @@ class Logs(commands.Cog):
     welcome_msg = """
 Hello {0}, welcome to the {1} server on Discord!
 
-Please review all of the rules in {2} before asking for help or chatting. In particular, we do not allow assistance relating to piracy.
+Please review all of the rules in {2} before chatting.
 
-You can find a list of staff and helpers in {2}.
-
-Do you simply need a place to start hacking your 3DS system? Check out **<https://3ds.hacks.guide>**!
-Do you simply need a place to start hacking your Wii U system? Check out **<https://wiiu.hacks.guide>**!
-Do you simply need a place to start hacking your Switch system? Check out **<https://switch.hacks.guide/>**!
+You can find a list of staff in {2}.
 
 By participating in this server, you acknowledge that user data (including messages, user IDs, user tags) will be collected and logged for moderation purposes. If you disagree with this collection, please leave the server immediately.
 
@@ -44,13 +40,8 @@ Thanks for stopping by and have a good time!
         self.logo_nitro = discord.utils.get(self.bot.guild.emojis, name="nitro") or discord.PartialEmoji.from_str("⁉")
         self.logo_boost = discord.utils.get(self.bot.guild.emojis, name="boost") or discord.PartialEmoji.from_str("⁉")
         self.nitro_msg = (
-            f"Thanks for boosting {self.logo_nitro} Nintendo Homebrew!\n"
-            f"As a Nitro Booster you have the following bonuses:\n"
-            f"- React permissions in {self.bot.channels['off-topic'].mention}, {self.bot.channels['elsewhere'].mention},"
-            f" and {self.bot.channels['nintendo-discussion'].mention}.\n"
-            f"- Able to use the `.nickme` command in DMs with Kurisu to change your nickname every 6 hours.\n"
-            f"- Able to stream in the {self.bot.channels['streaming-gamer'].mention} voice channel.\n"
-            f"Thanks for boosting and have a good time! {self.logo_boost}")
+            f"Thanks for boosting {self.logo_nitro} {self.bot.guild.name}!\n"
+        )
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
@@ -71,7 +62,7 @@ Thanks for stopping by and have a good time!
         if not member.flags.did_rejoin:
             if not self.bot.configuration.auto_probation:
                 await send_dm_message(member, self.welcome_msg.format(member.name, member.guild.name,
-                                                                      self.bot.channels['welcome-and-rules'].mention))
+                                                                      self.bot.channels['rules'].mention))
         roles = []
         async for r in self.restrictions.get_restrictions_by_user(member.id):
             restriction = Restriction(r[2])

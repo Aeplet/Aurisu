@@ -170,7 +170,7 @@ class Loop(commands.Cog):
                     guild = self.bot.get_guild(self.bot.guild.id)
                     if guild:
                         self.bot.guild = guild
-                    await self.bot.channels['helpers'].send(f"{self.bot.guild.name} has {self.bot.guild.member_count:,} members at this hour!")
+                    await self.bot.channels['member-count-logs'].send(f"{self.bot.guild.name} has {self.bot.guild.member_count:,} members at this hour!")
                     self.last_hour = current_timestamp.hour
 
                 if current_timestamp.minute % 30 == 0 and current_timestamp.second == 0:

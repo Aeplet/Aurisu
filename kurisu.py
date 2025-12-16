@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 # Kurisu by Nintendo Homebrew
+# Modified by Aep, into Aurisu
 # license: Apache License 2.0
+# https://github.com/Aeplet/Aurisu
 # https://github.com/nh-server/Kurisu
 
 import aiohttp
@@ -192,33 +194,17 @@ class Kurisu(commands.Bot):
         await self.load_channels()
         await self.load_roles()
 
-        self.helper_roles: dict[str, discord.Role] = {"3DS": self.roles['On-Duty 3DS'],
-                                                      "WiiU": self.roles['On-Duty Wii U'],
-                                                      "Switch": self.roles['On-Duty Switch'],
-                                                      "Legacy": self.roles['On-Duty Legacy'],
-                                                      "Wii": self.roles['On-Duty Wii'],
-                                                      "Hardware": self.roles['On-Duty Hardware'],
-                                                      }
+        self.helper_roles: dict[str, discord.Role] = {}
 
-        self.assistance_channels: tuple[discord.TextChannel | discord.VoiceChannel, ...] = (
-            self.channels['3ds-assistance-1'],
-            self.channels['3ds-assistance-2'],
-            self.channels['wiiu-assistance'],
-            self.channels['switch-assistance-1'],
-            self.channels['switch-assistance-2'],
-            self.channels['hacking-general'],
-            self.channels['legacy-systems'],
-            self.channels['tech-talk'],
-            self.channels['hardware'],
-        )
+        self.assistance_channels: tuple[discord.TextChannel | discord.VoiceChannel, ...] = ()
 
         self.staff_roles: dict[str, discord.Role] = {'Owner': self.roles['Owner'],
-                                                     'SuperOP': self.roles['SuperOP'],
-                                                     'OP': self.roles['OP'],
-                                                     'HalfOP': self.roles['HalfOP'],
+                                                     #'SuperOP': self.roles['SuperOP'],
+                                                     #'OP': self.roles['OP'],
+                                                     #'HalfOP': self.roles['HalfOP'],
                                                      }
 
-        self.err_channel = self.channels['bot-err']
+        self.err_channel = self.channels['bot-error']
         self.tree.err_channel = self.err_channel
 
         startup_message = f'{self.user.name} has started! {self.guild} has {self.guild.member_count:,} members!'
@@ -245,7 +231,7 @@ class Kurisu(commands.Bot):
                 embed.add_field(name="Channels not Found:", value=', '.join(self.channels_not_found), inline=False)
 
         logger.info(startup_message)
-        await self.channels['helpers'].send(embed=embed)
+        await self.channels['member-count-logs'].send(embed=embed)
 
         self.tree.app_commands = await self.tree.fetch_commands()
 
@@ -278,11 +264,8 @@ class Kurisu(commands.Bot):
                 self.failed_cogs.append((extension, type(e.original).__name__, e.original))
 
     async def load_channels(self):
-        channels = ['announcements', 'welcome-and-rules', '3ds-assistance-1', '3ds-assistance-2', 'wiiu-assistance',
-                    'switch-assistance-1', 'switch-assistance-2', 'helpers', 'watch-logs', 'message-logs',
-                    'upload-logs', 'hacking-general', 'meta', 'appeals', 'legacy-systems', 'dev', 'off-topic',
-                    'voice-and-music', 'bot-cmds', 'bot-talk', 'mods', 'mod-mail', 'mod-logs', 'server-logs', 'bot-err',
-                    'elsewhere', 'newcomers', 'nintendo-discussion', 'tech-talk', 'hardware', 'streaming-gamer', 'wii-vwii-assistance']
+        channels = ['announcements', 'rules', 'message-logs', 'meta', 'general', 'bot-cmds', 'staff-chat', 'mod-logs', 'server-logs', 'bot-error',
+                    'probation', 'member-count-logs', 'bot-dev']
 
         for n in channels:
             db_channel = await self.configuration.get_channel_by_name(n)
@@ -302,11 +285,7 @@ class Kurisu(commands.Bot):
                 logger.warning("Failed to find channel %s", n)
 
     async def load_roles(self):
-        roles = ['Helpers', 'Staff', 'HalfOP', 'OP', 'SuperOP', 'Owner', 'On-Duty 3DS', 'On-Duty Wii U',
-                 'On-Duty Switch', 'On-Duty Legacy', 'On-Duty Wii', 'On-Duty Hardware', 'Probation', 'Retired Staff', 'Verified', 'Trusted', 'Muted',
-                 'No-Help', 'No-elsewhere', 'No-Memes', 'No-art', 'No-animals', '#art-discussion', 'No-Embed', '#elsewhere',
-                 'Small Help', 'meta-mute', 'appeal-mute', 'crc', 'No-Tech', 'help-mute', 'streamer(temp)', 'streamer', '🍰',
-                 'No-U', 'No-Wii']
+        roles = ['Staff', 'Owner', 'Probation', "No-U", "NSFW Access", "User", "Announcement", "VoiceChat", "Server Booster", '🍰 birthday']
 
         for n in roles:
             db_role = await self.configuration.get_role(n)
@@ -497,8 +476,8 @@ async def startup():
         branch = os.environ.get('COMMIT_BRANCH')
 
     async with asyncpg.create_pool(DATABASE_URL, min_size=20, max_size=20) as pool:
-        logger.info("Starting Kurisu on commit %s on branch %s", commit, branch)
-        bot = Kurisu(command_prefix=['.', '!'], description="Kurisu, the bot for Nintendo Homebrew!", commit=commit,
+        logger.info("Starting Aurisu on commit %s on branch %s", commit, branch)
+        bot = Kurisu(command_prefix=['.', '!'], description="Aurisu, the bot for Aep's Insights!", commit=commit,
                      branch=branch, pool=pool)
         bot.help_command = KuriHelp()
 

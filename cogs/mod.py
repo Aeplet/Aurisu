@@ -893,6 +893,66 @@ class Mod(commands.GroupCog):
         await self.logs.post_action_log(ctx.author, member, 'no-stream', reason=reason)
 
     @is_staff("OP")
+    @commands.bot_has_permissions(manage_roles=True)
+    @commands.guild_only()
+    @commands.command()
+    async def verify(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
+        """Verifies a user to access the server."""
+
+        role = self.bot.roles['User']
+        await member.add_roles(role)
+
+        msg_user = f"You have been verified in {ctx.guild.name}!"
+        await send_dm_message(member, msg_user, ctx)
+        await ctx.send(f"{member.mention} has been verified.")
+        await self.logs.post_action_log(ctx.author, member, 'verify', reason=reason)
+
+    @is_staff("OP")
+    @commands.bot_has_permissions(manage_roles=True)
+    @commands.guild_only()
+    @commands.command(aliases=["yesnsfw", "nontnsfw"])
+    async def givensfw(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
+        """Allows a user to access the NSFW channels."""
+
+        role = self.bot.roles['NSFW Access']
+        await member.add_roles(role)
+
+        msg_user = f"You have received access to the NSFW channels in {ctx.guild.name}!"
+        await send_dm_message(member, msg_user, ctx)
+        await ctx.send(f"{member.mention} can now access the NSFW channels.")
+        await self.logs.post_action_log(ctx.author, member, 'give-nsfw', reason=reason)
+
+    @is_staff("OP")
+    @commands.bot_has_permissions(manage_roles=True)
+    @commands.guild_only()
+    @commands.command(aliases=["nonsfw", "yesntnsfw"])
+    async def takensfw(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
+        """Takes away a user's access to the NSFW channels."""
+
+        role = self.bot.roles['NSFW Access']
+        await member.remove_roles(role)
+
+        msg_user = f"You lost access to the NSFW channels in {ctx.guild.name}!"
+        await send_dm_message(member, msg_user, ctx)
+        await ctx.send(f"{member.mention} can no longer access the NSFW channels.")
+        await self.logs.post_action_log(ctx.author, member, 'take-nsfw', reason=reason)
+    
+    @is_staff("OP")
+    @commands.bot_has_permissions(manage_roles=True)
+    @commands.guild_only()
+    @commands.command()
+    async def unverify(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
+        """Unverify a user."""
+
+        role = self.bot.roles['User']
+        await member.remove_roles(role)
+
+        msg_user = f"You have been unverified in {ctx.guild.name}!"
+        await send_dm_message(member, msg_user, ctx)
+        await ctx.send(f"{member.mention} has been unverified.")
+        await self.logs.post_action_log(ctx.author, member, 'un-verify', reason=reason)
+
+    @is_staff("OP")
     @commands.guild_only()
     @commands.command(aliases=['banish'])
     async def nou(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):

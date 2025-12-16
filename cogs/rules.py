@@ -68,7 +68,7 @@ class Rules(commands.GroupCog):
 
     async def init_rules(self):
         await self.bot.wait_until_all_ready()
-        self.nh_emoji = discord.utils.get(self.bot.guild.emojis, name="nintendo_homebrew") or "⁉"
+        self.server_icon_emoji = discord.utils.get(self.bot.guild.emojis, name="wii") or "⁉"
         self.logo_3ds = discord.utils.get(self.bot.guild.emojis, name="3dslogo") or "⁉"
         self.logo_wiiu = discord.utils.get(self.bot.guild.emojis, name="wiiulogo") or "⁉"
         self.logo_switch = discord.utils.get(self.bot.guild.emojis, name="switchlogo") or "⁉"
@@ -76,11 +76,10 @@ class Rules(commands.GroupCog):
         self.logo_legacy = discord.utils.get(self.bot.guild.emojis, name="legacylogo") or "⁉"
         self.logo_hardware = discord.utils.get(self.bot.guild.emojis, name="screw") or "⁉"
 
-        self.rules_intro = f"""{str(self.nh_emoji)} __**Welcome to Nintendo Homebrew!**__
-We're the place to come to for hacking & homebrew on Nintendo's video game consoles, like the Nintendo 3DS, Wii U, and Nintendo Switch. Get assistance with setting up or using homebrew, find news on the latest developments, discuss about what you're making, and more.
+        self.rules_intro = f"""{str(self.server_icon_emoji)} __**Welcome to {self.bot.guild.name}!**__
+This is mostly a Wii development server, but, we discuss other consoles too occassionally.
 
 Be sure you read the following information before participating, especially rules. Not reading them is not an excuse for breaking them!
-These rules are shortened for simplicity. A more detailed version is available on [the Nintendo Homebrew website](<https://nintendohomebrew.com/rules>).
 The short and long versions are designed to be understood together, and neither overrides the other.
 
 **Attempting to start drama is reason enough for a ban on sight.**
@@ -94,12 +93,12 @@ Staff instruction is to be followed; refusal to do so may result in moderation a
 """
 
         self.mod_list = f"""🛠️ __*Mod List*__
-**Please do not send a direct message unless asked. General questions should go to {self.bot.channels['3ds-assistance-1'].mention}, {self.bot.channels['3ds-assistance-2'].mention}, {self.bot.channels['wiiu-assistance'].mention}, {self.bot.channels['switch-assistance-1'].mention}, {self.bot.channels['switch-assistance-2'].mention} or {self.bot.channels['legacy-systems'].mention} channels.
-Please contact <@!333857992170536961> if you need to get in touch with the staff team.**\n\n"""
+**Please do not send a direct message unless asked.
+Please contact <@!415606064856301589> if you have concerns about moderation.**\n"""
 
         self.helper_list = f"""🤝 __*Helper List*__
-**Please do not send a direct message unless asked. General questions should go to {self.bot.channels['3ds-assistance-1'].mention}, {self.bot.channels['3ds-assistance-2'].mention}, {self.bot.channels['wiiu-assistance'].mention}, {self.bot.channels['switch-assistance-1'].mention}, {self.bot.channels['switch-assistance-2'].mention} or {self.bot.channels['legacy-systems'].mention} channels.
-Please contact <@!333857992170536961> if you need to get in touch with the staff team. Mod-Mail is NOT FOR GETTING HELP WITH HACKING.**\n"""
+**Please do not send a direct message unless asked.
+Please contact <@!415606064856301589> if you have concerns about moderation.**\n"""
 
         self.nickname_policy = """🏷️ __*Username/Nickname and Avatar policy*__
 Usernames must begin with at least one alphanumeric character and are to be primarily alphanumeric, to keep them easy to tag and read.
@@ -119,15 +118,14 @@ A few commands may be useful for you to get information faster. Random command u
 • `.help Assistance` - List assistance-related commands. These can have useful information.
 • `.help` - List all the other available commands."""
 
-        self.extra = f"""While we appreciate everyone who boosts the server **IT DOES NOT MAKE YOU EXEMPT FROM THE RULES.** We've given boosters reaction perms in {self.bot.channels['off-topic'].mention}, {self.bot.channels['elsewhere'].mention}, and {self.bot.channels['nintendo-discussion'].mention}, and you can also stream in the Streaming gamer voice channel.
-📨 Invitation link: This is a permanent invitation link to the server!
-https://discord.gg/C29hYvh"""
+        self.extra = f""" 📨 Invitation link: This is a permanent invitation link to the server!
+https://discord.gg/wxfWSmyZ3x"""
 
     @is_staff('SuperOP')
     @commands.command()
     async def updaterules(self, ctx: KurisuContext):
         """Updates the rules in Welcome and Rules"""
-        channel = self.bot.channels['welcome-and-rules']
+        channel = self.bot.channels['rules']
         async for message in channel.history():
             await message.delete()
         await channel.send(self.rules_intro)
@@ -146,6 +144,8 @@ https://discord.gg/C29hYvh"""
         helpers_switch = [f"<@{helper}>" for helper, console in helpers.items() if console == 'Switch']
         helpers_wii = [f"<@{helper}>" for helper, console in helpers.items() if console == 'Wii']
         helpers_hardware = [f"<@{helper}>" for helper, console in helpers.items() if console == 'Hardware']
+        '''
+        Stubbed for now as helpers are not used
         await channel.send(self.helper_list)
         await channel.send(f"{str(self.logo_3ds)}  Nintendo 3DS\n" + '\n'.join(helpers_3ds))
         await channel.send(f"{str(self.logo_wiiu)}  Wii U\n" + '\n'.join(helpers_wiiu))
@@ -153,6 +153,7 @@ https://discord.gg/C29hYvh"""
         await channel.send(f"{str(self.logo_wii)}  Nintendo Wii\n" + '\n'.join(helpers_wii))
         await channel.send(f"{str(self.logo_legacy)}  Legacy\n" + '\n'.join(helpers_legacy))
         await channel.send(f"{str(self.logo_hardware)}  Hardware\n" + '\n'.join(helpers_hardware))
+        '''
         await channel.send(self.nickname_policy)
         await channel.send(self.useful_commands)
         await channel.send(self.extra)
@@ -180,40 +181,13 @@ https://discord.gg/C29hYvh"""
 
     @commands.command()
     @commands.dynamic_cooldown(KurisuCooldown(1, 30.0), commands.BucketType.channel)
-    async def consoleban(self, ctx: KurisuContext):
-        """States some stuff about no assistance with bans"""
-        await ctx.send("Please refrain from asking for or giving assistance with"
-                       " unbanning consoles which have been banned from online services.\n"
-                       "Reminder: sharing files that allow other users to evade "
-                       "Nintendo issued bans is a bannable offense.")
-
-    @commands.command()
-    @commands.dynamic_cooldown(KurisuCooldown(1, 30.0), commands.BucketType.channel)
-    async def pirate(self, ctx: KurisuContext):
-        """Hey! You can't steal another trainer's Pokémon!"""
-        await ctx.send("Please refrain from asking for or giving assistance with installing, using, or obtaining pirated software.")
-
-    @commands.command()
-    @commands.dynamic_cooldown(KurisuCooldown(1, 30.0), commands.BucketType.channel)
-    async def r4(self, ctx: KurisuContext):
-        """Cut down r4."""
-        await ctx.send("Please ask your question directly, and avoid 'asking to ask'. You'll get help quicker if you just describe your issue and what you might have already done to fix it.")
-
-    @commands.command()
-    @commands.dynamic_cooldown(KurisuCooldown(1, 30.0), commands.BucketType.channel)
-    async def r14(self, ctx: KurisuContext):
-        """Cut down r14."""
-        await ctx.send("Keep on-topic. Use <#314856589716750346> for general chatter and <#485138525885431808> for content that doesn't fit other channels. For access to elsewhere, read the rules carefully.")
-
-    @commands.command()
-    @commands.dynamic_cooldown(KurisuCooldown(1, 30.0), commands.BucketType.channel)
     async def nick(self, ctx: KurisuContext):
         """Displays the Nickname and Avatar Policy."""
         await ctx.send(self.nickname_policy)
 
     @commands.command()
     async def rules(self, ctx: KurisuContext):
-        """Links to the welcome-and-rules channel."""
+        """Links to the rules channel."""
         view = PaginatedEmbedView(paginator=RulePaginator(self.configuration.rules), author=ctx.author)
         msg = await ctx.send(embed=view.paginator.current(), view=view)
         view.message = msg

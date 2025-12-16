@@ -13,3 +13,4 @@ data/
 kurisudb/
 .idea/
 server_logs_url.txt
+venv

@@ -97,7 +97,7 @@ class Events(commands.Cog):
                         self.invite_antispam[message.author.id] = []
                     self.invite_antispam[message.author.id].append(message)
                     if len(self.invite_antispam[message.author.id]) > 3:
-                        await send_dm_message(message.author, "You have been kicked from Nintendo Homebrew for spamming invites to non approved servers.")
+                        await send_dm_message(message.author, f"You have been kicked from {self.bot.guild.name} for spamming invites to non approved servers.")
                         try:
                             self.bot.actions.append(f"wk:{message.author.id}")
                             await message.author.kick(reason="Spamming server invites.")
@@ -107,8 +107,8 @@ class Events(commands.Cog):
                         self.bot.loop.create_task(self.invite_spam_pop(message))
                         try:
                             await message.author.send(
-                                f"Please read {self.bot.channels['welcome-and-rules'].mention}. "
-                                f"Server invites must be approved by staff. To contact staff send a message to <@333857992170536961>.")
+                                f"Please read {self.bot.channels['rules'].mention}. "
+                                f"Server invites must be approved by staff. To contact staff send a message to <@415606064856301589>.")
                         except discord.errors.Forbidden:
                             pass
             # if the message was deleted don't reduce approved invites uses
@@ -127,7 +127,7 @@ class Events(commands.Cog):
                 pass
             if isinstance(message.author, discord.Member):
                 await send_dm_message(message.author,
-                                      f"Please read {self.bot.channels['welcome-and-rules'].mention}. "
+                                      f"Please read {self.bot.channels['rules'].mention}. "
                                       f"This site may be misinterpreted as legitimate and cause users harm, therefore your message was automatically deleted.",
                                       embed=embed)
             await self.bot.channels['message-logs'].send(
@@ -142,7 +142,7 @@ class Events(commands.Cog):
                 pass
             if isinstance(message.author, discord.Member):
                 await send_dm_message(message.author,
-                                      f"Please read {self.bot.channels['welcome-and-rules'].mention}. "
+                                      f"Please read {self.bot.channels['rules'].mention}. "
                                       f"You cannot mention tools used for piracy directly or indirectly, "
                                       f"therefore your message was automatically deleted.",
                                       embed=embed)
@@ -157,7 +157,7 @@ class Events(commands.Cog):
                 pass
             if isinstance(message.author, discord.Member):
                 await send_dm_message(message.author,
-                                      f"Please read {self.bot.channels['welcome-and-rules'].mention}. "
+                                      f"Please read {self.bot.channels['rules'].mention}. "
                                       f"You cannot link videos that mention piracy, therefore your message was automatically deleted.",
                                       embed=embed)
             await self.bot.channels['message-logs'].send(
@@ -178,7 +178,7 @@ class Events(commands.Cog):
                 pass
             if isinstance(message.author, discord.Member):
                 await send_dm_message(message.author,
-                                      f"Please read {self.bot.channels['welcome-and-rules'].mention}. "
+                                      f"Please read {self.bot.channels['rules'].mention}. "
                                       f"You cannot mention sites used for piracy directly or indirectly, "
                                       f"therefore your message was automatically deleted.",
                                       embed=embed)
@@ -194,7 +194,7 @@ class Events(commands.Cog):
                 pass
             if isinstance(message.author, discord.Member):
                 await send_dm_message(message.author,
-                                      f"Please read {self.bot.channels['welcome-and-rules'].mention}. "
+                                      f"Please read {self.bot.channels['rules'].mention}. "
                                       f"You cannot mention sites, programs or services used for unbanning, therefore your message was automatically deleted.",
                                       embed=embed)
             await self.bot.channels['message-logs'].send(
@@ -219,8 +219,8 @@ class Events(commands.Cog):
                 self.userbot_yeeter[message.author.id].append(message.channel)
                 if len(self.userbot_yeeter[message.author.id]) == 2:
                     if isinstance(message.author, discord.Member):
-                        msg = ("You have been banned from Nintendo Homebrew for linking scamming sites in multiple channels. "
-                               "If you think this is a mistake contact <@159824269411352576> (frozenchen) on discord or send a email to staff@nintendohomebrew.com")
+                        msg = (f"You have been banned from {self.bot.guild.name} for linking scamming sites in multiple channels. "
+                               "If you think this is a mistake contact <@415606064856301589> (aep) on discord")
                         await send_dm_message(message.author, msg)
                         self.bot.actions.append(f'wk:{message.author.id}')
                         await message.author.kick(reason="Linking scamming links in multiple channels.")
@@ -239,7 +239,7 @@ class Events(commands.Cog):
                     # Sometimes they get banned before the bot can apply the role
                     pass
                 await send_dm_message(message.author,
-                                      f"Please read {self.bot.channels['welcome-and-rules'].mention}. "
+                                      f"Please read {self.bot.channels['rules'].mention}. "
                                       f"You have been probated for posting a link to a scamming site.",
                                       embed=embed)
             await self.bot.channels['message-logs'].send(
@@ -286,7 +286,7 @@ class Events(commands.Cog):
                 # If the bot can't time out the member it's quite likely they shouldn't be timed out for this anyway
                 return
             msg_user = "You were automatically timed-out for sending too many messages in a short period of time!\n\n" \
-                       "If you believe this was done in error, send a direct message (DM) to <@!333857992170536961> to contact staff."
+                       "If you believe this was done in error, send a direct message (DM) to <@!415606064856301589> to contact staff."
             await send_dm_message(message.author, msg_user)
             log_msg = f"🔇 **Auto-timeout**: {message.author.mention} timed out for spamming | {message.author}\n🗓 __Creation__: {message.author.created_at}\n🏷 __User ID__: {message.author.id}"
             embed = discord.Embed(title="Deleted messages", color=discord.Color.gold())
@@ -325,7 +325,7 @@ class Events(commands.Cog):
             msg_user = ("You were automatically placed under probation "
                         "for mentioning too many users in a short period of time!\n\n"
                         "If you believe this was done in error, send a direct "
-                        "message (DM) to <@!333857992170536961> to contact staff.")
+                        "message (DM) to <@!415606064856301589> to contact staff.")
             await send_dm_message(message.author, msg_user)
             log_msg = f"🚫 **Auto-probated**: {message.author.mention} probated for mass user mentions | {message.author}\n" \
                       f"🗓 __Creation__: {message.author.created_at}\n🏷 __User ID__: {message.author.id}"
@@ -395,9 +395,9 @@ class Events(commands.Cog):
         if not self.bot.IS_DOCKER:
             if message.author.name == "GitHub" and message.author.discriminator == "0000":
                 if message.embeds and message.embeds[0].title and message.embeds[0].title.startswith('[Kurisu:port]'):
-                    await self.bot.channels['helpers'].send("Automatically pulling changes!")
+                    await self.bot.channels['bot-dev'].send("Automatically pulling changes!")
                     call(['git', 'pull'])
-                    await self.bot.channels['helpers'].send("Restarting bot...")
+                    await self.bot.channels['bot-dev'].send("Restarting bot...")
                     await self.bot.close()
                 return
         await self.bot.wait_until_all_ready()
