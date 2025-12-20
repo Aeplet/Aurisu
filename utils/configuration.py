@@ -20,8 +20,8 @@ if TYPE_CHECKING:
 
 class StaffRank(IntEnum):
     Owner = 0
-    SuperOP = 1
-    OP = 2
+    Admin = 1
+    Moderator = 2
     HalfOP = 3
     Staff = 3
     Helper = 4
