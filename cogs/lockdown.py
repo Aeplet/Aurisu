@@ -89,7 +89,7 @@ class Lockdown(commands.Cog):
 
         return locked_down
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.command(aliases=['lock'])
     async def lockdown(self, ctx: GuildContext, channels: commands.Greedy[discord.TextChannel | discord.VoiceChannel]):
         """Lock message sending in the channel. Staff only."""
@@ -187,7 +187,7 @@ class Lockdown(commands.Cog):
             else:
                 channels.append(ctx.channel)
 
-        is_helper = not check_staff(self.bot, "HalfOP", author.id)
+        is_helper = not check_staff(self.bot, "Moderator", author.id)
 
         if is_helper and any(c not in self.bot.assistance_channels for c in channels):
             return await ctx.send("You can only unlock assistance channels.")

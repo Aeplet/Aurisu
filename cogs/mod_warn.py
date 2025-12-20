@@ -99,7 +99,7 @@ class ModWarn(commands.GroupCog):
             msg += "\n✏️ __Reason__: " + reason
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff('OP')
+    @is_staff('Moderator')
     @app_commands.guild_only
     @app_commands.command(name='multiwarn')
     async def multiwarn_app(self, interaction: discord.Interaction, member: discord.Member | discord.User, warn_number: int, *, reason: Optional[str], pinned: bool = False):
@@ -209,7 +209,7 @@ class ModWarn(commands.GroupCog):
                 value=value)
         await ctx.send(embed=embed)
 
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.command()
     async def copywarns(self, ctx: GuildContext, src: discord.Member | discord.User, target: discord.Member | discord.User):
         """Copy warns from one user ID to another. Overwrites all warns of the target user ID. SOP+ only."""
@@ -238,7 +238,7 @@ class ModWarn(commands.GroupCog):
               f"({src}) to {self.bot.escape_text(target.name)} ({target})"
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.command()
     async def delwarn(self, ctx: GuildContext, member: discord.Member | discord.User, idx: commands.Range[int, 1, 5], *, reason: str):
         """Remove a specific warn from a user. Staff only."""
@@ -259,7 +259,7 @@ class ModWarn(commands.GroupCog):
         msg = f"🗑 **Deleted warn**: {ctx.author.mention} removed warn {idx} from {member.mention} | {self.bot.escape_text(member)}"
         await self.bot.channels['mod-logs'].send(msg, embed=embed)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.command()
     async def clearwarns(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: str):
         """Clear all warns for a user. Staff only."""
@@ -271,7 +271,7 @@ class ModWarn(commands.GroupCog):
         msg = f"🗑 **Cleared warns**: {ctx.author.mention} cleared {res} warns from {member.mention} | {self.bot.escape_text(member)}"
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.max_concurrency(1, commands.BucketType.guild)
     @commands.hybrid_command()

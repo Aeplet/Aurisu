@@ -166,7 +166,7 @@ class Extras(commands.GroupCog):
         await ctx.send(f"Uptime: {datetime.now(self.bot.tz) - self.bot.startup}")
 
     @commands.guild_only()
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.command(hidden=True, aliases=['copyrole', 'crp'])
     async def copyroleperms(self, ctx: GuildContext, role: discord.Role, src_channel: discord.TextChannel | discord.VoiceChannel, des_channels: commands.Greedy[discord.TextChannel | discord.VoiceChannel]):
         """Copy role overwrites from a channel to channels"""
@@ -179,7 +179,7 @@ class Extras(commands.GroupCog):
         await ctx.send("Changed permissions successfully!")
 
     @commands.guild_only()
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.command(hidden=True, aliases=['ccp'])
     async def copychannelperms(self, ctx: GuildContext, src_channel: discord.TextChannel | discord.VoiceChannel | discord.ForumChannel, des_channels: commands.Greedy[discord.TextChannel | discord.VoiceChannel | discord.ForumChannel]):
         """Copy channel overwrites from a channel to channels"""
@@ -246,7 +246,7 @@ class Extras(commands.GroupCog):
         await ctx.send("Overwrites deleted.")
 
     @commands.guild_only()
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(hidden=True)
     async def listperms(self, ctx: GuildContext):
         """List the stored the channel overwrites."""
@@ -256,7 +256,7 @@ class Extras(commands.GroupCog):
         embed = discord.Embed(title="Stored Overwrites", description='\n'.join(overwrites_names), colour=discord.Colour.random())
         await ctx.send(embed=embed)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(hidden=True)
     async def userroles(self, ctx: GuildContext, u: discord.Member = commands.Author):
@@ -268,7 +268,7 @@ class Extras(commands.GroupCog):
             msg += f"{role} = {role.id}\n"
         await ctx.author.send(msg)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(hidden=True)
     async def serverroles(self, ctx: GuildContext, exp: str):
@@ -283,13 +283,13 @@ class Extras(commands.GroupCog):
                 msg += f"{role.name} = {role.id}\n"
         await ctx.author.send(msg)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(hidden=True)
     async def embedtext(self, ctx: KurisuContext, *, text):
         """Embed content."""
         await ctx.send(embed=discord.Embed(description=text))
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def prune30(self, ctx: GuildContext, key=""):
@@ -313,14 +313,14 @@ class Extras(commands.GroupCog):
         msg = f"👢 **Prune**: {ctx.author.mention} started a prune."
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.command()
     async def disableleavelogs(self, ctx: KurisuContext):
         """DEBUG COMMAND"""
         self.bot.pruning = True
         await ctx.send("disable")
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.command()
     async def enableleavelogs(self, ctx: KurisuContext):
         """DEBUG COMMAND"""
@@ -674,7 +674,7 @@ class Extras(commands.GroupCog):
         await self.extras.delete_tag(tag_name)
         await ctx.send("Tag deleted successfully.")
 
-    @is_staff_app('OP')
+    @is_staff_app('Moderator')
     @app_commands.guild_only
     @app_commands.command()
     async def simplevote(self,
@@ -700,7 +700,7 @@ class Extras(commands.GroupCog):
                                        author_id=interaction.user.id, options=options,
                                        start=datetime.now(self.bot.tz), message_id=msg.id, staff_only=staff_only)
 
-    @is_staff('OP')
+    @is_staff('Moderator')
     @commands.guild_only()
     @commands.command(aliases=['stealemoji'])
     async def addemoji(self, ctx: GuildContext, name: str, emoji: discord.PartialEmoji | str, *roles: discord.Role):

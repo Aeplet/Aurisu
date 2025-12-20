@@ -41,7 +41,7 @@ class Soap(commands.Cog):
             if channel and channel.type == discord.ChannelType.category:
                 self.soaps_category = channel
 
-    @is_staff('OP')
+    @is_staff('Moderator')
     @commands.guild_only()
     @commands.command()
     async def setsoaps(self, ctx: GuildContext, category: discord.CategoryChannel):

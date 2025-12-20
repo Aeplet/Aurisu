@@ -24,7 +24,7 @@ class Load(commands.Cog):
             raise commands.NoPrivateMessage()
         return True
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(hidden=True)
     async def load(self, ctx: GuildContext, *, module: str):
         """Loads a Cog."""
@@ -36,7 +36,7 @@ class Load(commands.Cog):
         except Exception as e:
             await ctx.send(f'💢 Failed!\n```\n{type(e).__name__}: {e}\n```')
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(hidden=True)
     async def unload(self, ctx: GuildContext, *, module: str):
         """Unloads a Cog."""
@@ -51,7 +51,7 @@ class Load(commands.Cog):
         except Exception as e:
             await ctx.send(f'💢 Failed!\n```\n{type(e).__name__}: {e}\n```')
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(name='reload')
     async def _reload(self, ctx: GuildContext, *, module: str):
         """Reloads a Cog."""

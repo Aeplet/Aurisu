@@ -84,7 +84,7 @@ class ServerLogs(commands.GroupCog, name="serverlogs"):
         sql_query += f" ORDER BY 2,1 {order} LIMIT {limit}"
         return sql_query, bindings
 
-    @is_staff_app("OP")
+    @is_staff_app("Moderator")
     @app_commands.choices(
         order_by=[
             Choice(name='Older first', value='ASC',),
@@ -155,7 +155,7 @@ class ServerLogs(commands.GroupCog, name="serverlogs"):
         file = discord.File(filename="output.txt", fp=data)
         await interaction.edit_original_response(attachments=[file])
 
-    @is_staff_app("OP")
+    @is_staff_app("Moderator")
     @app_commands.choices(
         view_state=[
             Choice(name='Public', value=""),

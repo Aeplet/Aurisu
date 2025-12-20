@@ -20,19 +20,19 @@ class Blah(commands.Cog):
         self.bot: Kurisu = bot
         self.emoji = discord.PartialEmoji.from_str('🗣️')
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command()
     async def announce(self, ctx: KurisuContext, *, message: str):
         """Posts a message to the announcement channel."""
         await self.bot.channels['announcements'].send(message, allowed_mentions=discord.AllowedMentions(everyone=True, roles=True))
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command()
     async def speak(self, ctx: KurisuContext, channel: discord.TextChannel, *, message: str):
         """Sends a message to a channel."""
         await channel.send(message, allowed_mentions=discord.AllowedMentions(everyone=True, roles=True))
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command()
     async def sendtyping(self, ctx: KurisuContext, channel: discord.TextChannel = commands.CurrentChannel):
         """Triggers typing on a channel."""

@@ -35,7 +35,7 @@ class Filter(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send_help(ctx.command)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @wordfilter.command(name='add')
     async def add_word(self, ctx: KurisuContext, word: str, *, kind: str):
         """Adds a word to the word filter. A filter list must be specified"""
@@ -76,7 +76,7 @@ class Filter(commands.Cog):
         else:
             await ctx.send("The word filter is empty!")
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @wordfilter.command(name='delete', aliases=['remove'])
     async def delete_word(self, ctx: KurisuContext, *, words: str):
         """Deletes a word from the word filter"""
@@ -117,7 +117,7 @@ class Filter(commands.Cog):
         file = text_to_discord_file(text, name=f"wordfilter_{export_format}_export.txt")
         await ctx.send(file=file)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @wordfilter.command(name='import')
     async def wordfilter_import(self, ctx, input_file: discord.Attachment, type: Literal['join', 'replace'], *, filter_name: str):
         """Imports words to the word filter. These can added to the existing ones (`join`) or replace them (`replace`).
@@ -184,7 +184,7 @@ class Filter(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send_help(ctx.command)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @levenshteinfilter.command(name='add')
     async def add_levenshtein(self, ctx: KurisuContext, word: str, threshold: int, *, kind: str):
         """Adds a word to the levenshtein filter. A permutation threshold and a filter list must be specified.
@@ -255,7 +255,7 @@ class Filter(commands.Cog):
         else:
             await ctx.send("Message didn't trigger the levenshtein filter.")
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @levenshteinfilter.command(name='delete', aliases=['remove'])
     async def delete_levenshtein(self, ctx: KurisuContext, *, words: str):
         """Deletes a word from the levenshtein filter"""
@@ -277,7 +277,7 @@ class Filter(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send_help(ctx.command)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @levenshtein_whitelist.command(name='add')
     async def whitelist_add(self, ctx: KurisuContext, word: str):
         """Adds a word to the levenshtein filter whitelist"""
@@ -287,7 +287,7 @@ class Filter(commands.Cog):
         await self.filters.add_whitelisted_word(word)
         await ctx.send("Word added to whitelist successfully!")
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @levenshtein_whitelist.command(name='remove')
     async def whitelist_remove(self, ctx: KurisuContext, word: str):
         """Removes a word from the levenshtein filter whitelist"""
@@ -312,7 +312,7 @@ class Filter(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send_help(ctx.command)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @invitefilter.command(name='add')
     async def add_invite(self, ctx: KurisuContext, invite: discord.Invite, alias: str):
         """Adds a discord invite to the filter whitelist"""
@@ -332,7 +332,7 @@ class Filter(commands.Cog):
         await self.bot.channels['mod-logs'].send(f"🆕 **Added**: {ctx.author.mention} added {invite.code}(`{invite.guild.name}`) to the invite whitelist!")
         await ctx.send("Successfully added invite to whitelist")
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @invitefilter.command(name='delete')
     async def delete_invite(self, ctx: KurisuContext, code: str):
         """Removes a discord invite from the filter whitelist"""

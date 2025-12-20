@@ -51,7 +51,7 @@ class AutoMod(commands.GroupCog):
         self.emoji = discord.PartialEmoji.from_str('🤖')
         self.bot = bot
 
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.command()
     async def automod(self, ctx: GuildContext):
         """Sends a discord view to view and set some AutoMod rules settings."""
@@ -59,7 +59,7 @@ class AutoMod(commands.GroupCog):
         view = AutoModRulesView(rules, ctx.author)
         view.message = await ctx.send(embed=view.default_embed, view=view)
 
-    @is_staff_app("OP")
+    @is_staff_app("Moderator")
     @app_commands.guild_only
     @app_commands.command()
     async def search_keyword(self, interaction: discord.Interaction, word: str):
@@ -90,7 +90,7 @@ class AutoMod(commands.GroupCog):
         file = text_to_discord_file(text, name='matches.txt')
         await interaction.response.send_message(f"{count} matches found.", file=file)
 
-    @is_staff_app("SuperOP")
+    @is_staff_app("Admin")
     @app_commands.autocomplete(rule=rules_autocomplete)
     @app_commands.guild_only
     @app_commands.command()
@@ -130,7 +130,7 @@ class AutoMod(commands.GroupCog):
         await interaction.response.send_message(f"Added keyword {keyword} to {rule.name} Automod rule succesfully.",
                                                 ephemeral=True)
 
-    @is_staff_app("SuperOP")
+    @is_staff_app("Admin")
     @app_commands.autocomplete(rule=rules_autocomplete)
     @app_commands.guild_only
     @app_commands.command()

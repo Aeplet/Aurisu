@@ -68,7 +68,7 @@ class Modwatch(commands.Cog):
         else:
             await ctx.author.send(f"**Watchlist contents**\n{messages[0]}")
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command()
     async def watch_cleanup(self, ctx: GuildContext):
         """Removes members that aren't in the server from the watchlist."""

@@ -35,7 +35,7 @@ class Memes(commands.Cog):
     async def cog_check(self, ctx: KurisuContext) -> bool:
         if ctx.guild is None or ctx.command in self.excluded or isinstance(ctx.author, discord.User):
             return True
-        return not (ctx.channel in self.bot.assistance_channels or self.bot.roles['No-Memes'] in ctx.author.roles)
+        return not (ctx.channel in self.bot.assistance_channels)
 
     async def cog_command_error(self, ctx: KurisuContext, error: commands.CommandError):
         if isinstance(error, commands.CheckFailure) and ctx.channel.guild is not None:
@@ -563,7 +563,7 @@ class Memes(commands.Cog):
         """damn that's crazy but"""
         await ctx.send("https://album.eiphax.tech/uploads/big/4f8e77e08460e2234cdaebc6308f1fd1.mp4")
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(hidden=True, aliases=['🍰', 'cake'])
     async def birthday(self, ctx: KurisuContext, member: discord.Member):

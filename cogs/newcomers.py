@@ -85,13 +85,13 @@ class Newcomers(commands.Cog):
         """
         await self.autoprobate_handler(ctx)
 
-    @is_staff('OP')
+    @is_staff('Moderator')
     @autoprobate_cmd.command(aliases=on_aliases, hidden=True)
     async def autoprobate_on(self, ctx: GuildContext):
         await ctx.guild.edit(verification_level=discord.VerificationLevel.high)
         await self.autoprobate_handler(ctx, True)
 
-    @is_staff('OP')
+    @is_staff('Moderator')
     @autoprobate_cmd.command(aliases=off_aliases, hidden=True)
     async def autoprobate_off(self, ctx: GuildContext):
         await ctx.guild.edit(verification_level=discord.VerificationLevel.medium)
@@ -124,11 +124,11 @@ class Newcomers(commands.Cog):
                                  'the example will not remove your probation.**', delete_after=10)
             ctx.command.reset_cooldown(ctx)
 
-    @is_staff('SuperOP')
+    @is_staff('Admin')
     @commands.guild_only()
     @commands.command(extras={'examples': ['.raidpop kick --reason mass raid --younger_than 2d', '!raidpop ban --regex GiveAwayBot --dry_run True']})
     async def raidpop(self, ctx: GuildContext, action: Literal['kick', 'ban'], *, flags: RaidPopFlags):
-        """Kicks or bans all probated members in the join list. SuperOP+ only.
+        """Kicks or bans all probated members in the join list. Admin+ only.
 
         **Flags**
         --reason [str] Reason for the kick/ban.

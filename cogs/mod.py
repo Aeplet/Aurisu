@@ -58,7 +58,7 @@ class Mod(commands.GroupCog):
         await ctx.send("👋 Bye bye!")
         await self.bot.close()
 
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.command()
     async def pull(self, ctx: KurisuContext):
         """Pull new changes from GitHub and restart."""
@@ -199,7 +199,7 @@ class Mod(commands.GroupCog):
         for page in paginator.pages:
             await send_dm_message(author, page)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def matchuser(self, ctx: GuildContext, *, rgx: str):
@@ -272,7 +272,7 @@ class Mod(commands.GroupCog):
 
         assert channel is not None
 
-        if channel not in self.bot.assistance_channels and not check_staff(ctx.bot, "OP", ctx.author.id):
+        if channel not in self.bot.assistance_channels and not check_staff(ctx.bot, "Moderator", ctx.author.id):
             return await ctx.send("You cannot use this command outside of assistance channels.")
 
         if length > 21600:
@@ -336,7 +336,7 @@ class Mod(commands.GroupCog):
         else:
             await ctx.send("No messages were deleted.", delete_after=10)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def metamute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -345,7 +345,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer speak in meta.")
         await self.logs.post_action_log(ctx.author, member, 'meta-mute', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.bot_has_permissions(manage_roles=True)
     @commands.command()
@@ -355,7 +355,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can now speak in meta again.")
         await self.logs.post_action_log(ctx.author, member, 'meta-unmute', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(aliases=["appealsmute"])
     async def appealmute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -364,7 +364,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer speak in appeals.")
         await self.logs.post_action_log(ctx.author, member, 'appeals-mute', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.bot_has_permissions(manage_roles=True)
     @commands.command(aliases=["appealsunmute"])
@@ -374,7 +374,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can now speak in appeals again.")
         await self.logs.post_action_log(ctx.author, member, 'appeals-unmute', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.bot_has_permissions(manage_roles=True)
     @commands.command()
@@ -386,7 +386,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer speak.")
         await self.logs.post_action_log(ctx.author, member, 'mute', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command()
@@ -406,7 +406,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer speak.")
         await self.logs.post_action_log(issuer, member, 'time-mute', reason=reason, until=unmute_time)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def unmute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -415,7 +415,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can now speak again.")
         await self.logs.post_action_log(ctx.author, member, 'unmute', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(aliases=['timemute'])
     async def timeout(self, ctx: GuildContext, member: discord.Member, length: int = commands.parameter(converter=DateOrTimeToSecondsConverter), *, reason: Optional[str]):
@@ -440,7 +440,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} has been given a timeout.")
         await self.logs.post_action_log(issuer, member, 'timeout', reason=reason, until=timeout_expiration)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def untimeout(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -451,7 +451,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} timeout was removed.")
         await self.logs.post_action_log(ctx.author, member, 'no-timeout', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def art(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -460,7 +460,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can access art-discussion again.")
         await self.logs.post_action_log(ctx.author, member, 'give-art', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def noart(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -469,7 +469,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer access art-discussion.")
         await self.logs.post_action_log(ctx.author, member, 'take-art', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def elsewhere(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -479,7 +479,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can access elsewhere again.")
         await self.logs.post_action_log(ctx.author, member, 'give-elsewhere', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def noelsewhere(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -488,7 +488,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer access elsewhere.")
         await self.logs.post_action_log(ctx.author, member, 'take-elsewhere', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def noembed(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -499,7 +499,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer embed links or attach files.")
         await self.logs.post_action_log(ctx.author, member, 'no-embed', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def embed(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -695,13 +695,13 @@ class Mod(commands.GroupCog):
             db_channel = await self.configuration.get_channel(channel.id)
         await ctx.send(f"{channel.mention} is {'now' if value else 'no longer'} a mod channel.")
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command()
     async def playing(self, ctx: KurisuContext, *, gamename):
         """Sets playing message. Staff only."""
         await self.bot.change_presence(activity=discord.Game(name=gamename))
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(aliases=['presence'])
     async def status(self, ctx: KurisuContext, status: str):
         """Sets the bot presence. Staff only.
@@ -720,7 +720,7 @@ class Mod(commands.GroupCog):
         else:
             await ctx.send_help(ctx.command)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command()
     async def username(self, ctx: KurisuContext, *, username: str):
         """Sets bot name. Staff only."""
@@ -763,16 +763,16 @@ class Mod(commands.GroupCog):
                 "Profile picture changed successfully.", ephemeral=True
             )
 
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.max_concurrency(1, commands.BucketType.default)
     @commands.command()
     async def sync(self, ctx: KurisuContext):
-        """Syncs app commands manually. SuperOP only"""
+        """Syncs app commands manually. Admin only"""
         await ctx.bot.tree.sync()
         ctx.bot.tree.app_commands = await ctx.bot.tree.fetch_commands()
         await ctx.send("App commands synced!")
 
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.guild_only()
     @commands.command()
     async def nofilter(self, ctx: GuildContext, channel: discord.TextChannel):
@@ -782,7 +782,7 @@ class Mod(commands.GroupCog):
         await self.configuration.set_nofilter_channel(channel, False)
         await self.bot.channels['mod-logs'].send(f"⭕ **No filter**: {ctx.author.mention} added no filter to {channel.mention}")
 
-    @is_staff("SuperOP")
+    @is_staff("Admin")
     @commands.guild_only()
     @commands.command()
     async def filter(self, ctx: GuildContext, channel: discord.TextChannel):
@@ -824,7 +824,7 @@ class Mod(commands.GroupCog):
         embed.add_field(name="Status", value=state[db_channel.lock_level], inline=False)
         await ctx.send(embed=embed)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command()
@@ -854,7 +854,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} has been given streaming permissions until {expiring_time_string}.")
         await self.logs.post_action_log(ctx.author, member, 'stream', reason=reason, until=expiring_time)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command()
@@ -874,7 +874,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} has been given permanent streaming permissions.")
         await self.logs.post_action_log(ctx.author, member, 'stream', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command()
@@ -892,7 +892,7 @@ class Mod(commands.GroupCog):
         await send_dm_message(member, msg_user, ctx)
         await self.logs.post_action_log(ctx.author, member, 'no-stream', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command()
@@ -907,7 +907,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} has been verified.")
         await self.logs.post_action_log(ctx.author, member, 'verify', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command(aliases=["yesnsfw", "nontnsfw"])
@@ -922,7 +922,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can now access the NSFW channels.")
         await self.logs.post_action_log(ctx.author, member, 'give-nsfw', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command(aliases=["nonsfw", "yesntnsfw"])
@@ -937,7 +937,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can no longer access the NSFW channels.")
         await self.logs.post_action_log(ctx.author, member, 'take-nsfw', reason=reason)
     
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
     @commands.command()
@@ -952,7 +952,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} has been unverified.")
         await self.logs.post_action_log(ctx.author, member, 'un-verify', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(aliases=['banish'])
     async def nou(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
@@ -963,7 +963,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} has been banished to the void.")
         await self.logs.post_action_log(ctx.author, member, 'nou', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(aliases=['retrieve'])
     async def unnou(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
@@ -972,7 +972,7 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} has been retrieved from the void.")
         await self.logs.post_action_log(ctx.author, member, 'unnou', reason=reason)
 
-    @is_staff_app("OP")
+    @is_staff_app("Moderator")
     @app_commands.guild_only
     @app_commands.command()
     @app_commands.choices(restriction=[

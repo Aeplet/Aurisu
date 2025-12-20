@@ -121,7 +121,7 @@ A few commands may be useful for you to get information faster. Random command u
         self.extra = f""" 📨 Invitation link: This is a permanent invitation link to the server!
 https://discord.gg/wxfWSmyZ3x"""
 
-    @is_staff('SuperOP')
+    @is_staff('Admin')
     @commands.command()
     async def updaterules(self, ctx: KurisuContext):
         """Updates the rules in Welcome and Rules"""
@@ -159,13 +159,13 @@ https://discord.gg/wxfWSmyZ3x"""
         await channel.send(self.extra)
         await ctx.send("Updated rules successfully!")
 
-    @is_staff_app("OP")
+    @is_staff_app("Moderator")
     @app_commands.command()
     async def add_rule(self, interaction: discord.Interaction):
         """Adds or edits a current rule. Missing fields stay the same for editing rules."""
         await interaction.response.send_modal(RuleAddition())
 
-    @is_staff_app("OP")
+    @is_staff_app("Moderator")
     @app_commands.command()
     async def delete_rule(self, interaction: discord.Interaction, number: int):
         """Deletes a rule

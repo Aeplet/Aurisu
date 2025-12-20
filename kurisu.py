@@ -199,9 +199,9 @@ class Kurisu(commands.Bot):
         self.assistance_channels: tuple[discord.TextChannel | discord.VoiceChannel, ...] = ()
 
         self.staff_roles: dict[str, discord.Role] = {'Owner': self.roles['Owner'],
-                                                     #'SuperOP': self.roles['SuperOP'],
-                                                     #'OP': self.roles['OP'],
-                                                     #'HalfOP': self.roles['HalfOP'],
+                                                     #'Admin': self.roles['Admin'],
+                                                     #Moderator: self.roles[Moderator],
+                                                     #'Moderator': self.roles['Moderator'],
                                                      }
 
         self.err_channel = self.channels['bot-error']

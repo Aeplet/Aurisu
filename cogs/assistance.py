@@ -124,7 +124,7 @@ class Assistance(commands.GroupCog):
         await self.bot.channels['mod-logs'].send(msg)
         await ctx.send(f"Created small help {channel.mention}.")
 
-    @is_staff('OP')
+    @is_staff('Moderator')
     @commands.guild_only()
     @commands.command()
     async def setsmallhelp(self, ctx: GuildContext, category: discord.CategoryChannel):

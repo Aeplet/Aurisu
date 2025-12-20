@@ -46,7 +46,7 @@ class KickBan(commands.GroupCog):
             msg += " without a reason"
         await self.bot.channels['meta'].send(msg)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(kick_members=True)
     @commands.command(name="kick")
     async def kick_member(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str] = None):
@@ -66,7 +66,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{member} is now gone. 👌")
         await self.bot.logs.post_action_log(ctx.author, member, 'kick', reason=reason)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(kick_members=True)
     @commands.command(name="scamkick")
     async def scamkick(self, ctx: GuildContext, member: discord.Member):
@@ -86,7 +86,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{member} is now gone. 👌")
         await self.bot.logs.post_action_log(ctx.author, member, 'kick', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="ban", aliases=["yeet"])
     async def ban_member(self, ctx: GuildContext, member: discord.Member | discord.User, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
@@ -125,7 +125,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(random.choice(success_list))
         await self.bot.logs.post_action_log(ctx.author, member, 'ban', reason=reason)
 
-    @is_staff_app("OP")
+    @is_staff_app("Moderator")
     @app_commands.guild_only()
     @app_commands.command(name='ban')
     async def ban_member_slash(self,
@@ -183,7 +183,7 @@ class KickBan(commands.GroupCog):
             await interaction.response.send_message(f"{member} is now b&. 👍" + ("\nFailed to send DM message" if not msg_send else ""))
         await self.bot.logs.post_action_log(interaction.user, member, 'ban', reason=reason, until=unban_time)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="superban", aliases=["superyeet"])
     async def superban(self, ctx: GuildContext, member: discord.Member | discord.User, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
@@ -206,7 +206,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{member} is now SUPER BANNED. 👍 https://nintendohomebrew.com/assets/img/banned.gif")
         await self.bot.logs.post_action_log(ctx.author, member, 'ban', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="trainban", aliases=["ryanban"])
     async def trainban(self, ctx: GuildContext, member: discord.Member | discord.User, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
@@ -244,7 +244,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{user} is now unbanned.")
         await self.bot.logs.post_action_log(ctx.author, user, 'unban', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="silentban", aliases=["quietyeet"])
     async def silentban_member(self, ctx: GuildContext, member: discord.Member, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
@@ -262,7 +262,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{member} is now b&. 👍")
         await self.bot.logs.post_action_log(ctx.author, member, 'silentban', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="timeban", aliases=["timeyeet"])
     async def timeban_member(self, ctx: GuildContext, member: discord.Member | discord.User, length: int = commands.parameter(converter=DateOrTimeToSecondsConverter), *, reason: Optional[str] = None):
@@ -294,7 +294,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{member} is now b& until {unban_time_string}. 👍")
         await self.bot.logs.post_action_log(ctx.author, member, 'timeban', reason=reason, until=unban_time)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.bot_has_permissions(kick_members=True)
     @commands.command(name="softban", aliases=["gentleyeet"])
     async def softban_member(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: str):
@@ -314,7 +314,7 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{member} is now b&. 👍")
         await self.bot.logs.post_action_log(ctx.author, member, 'softban', reason=reason)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(name="unsoftban")
     async def unsoftban_member(self, ctx: GuildContext, user: discord.Member | discord.User):
         """Un-soft-ban a user based on ID. OP+ only."""
@@ -325,7 +325,7 @@ class KickBan(commands.GroupCog):
         msg = f"⚠️ **Un-soft-ban**: {ctx.author.mention} un-soft-banned {self.bot.escape_text(user)}"
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.command(name="scamban")
     async def scamban_member(self, ctx: GuildContext, member: discord.Member, site: str):
         """Bans member deleting message from last day and add a scamming site to the filter"""

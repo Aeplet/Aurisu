@@ -51,7 +51,7 @@ class ModStaff(commands.Cog):
         await self.bot.configuration.update_staff_roles(member)
         await ctx.send(f"{member.mention} is no longer staff. Stop by some time!")
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.command()
     async def sudo(self, ctx: GuildContext):
         """Gain staff powers temporarily. Only needed by HalfOPs."""
@@ -63,12 +63,12 @@ class ModStaff(commands.Cog):
         if position is not StaffRank.HalfOP:
             await ctx.send("You are not HalfOP, therefore this command is not required.")
             return
-        await author.add_roles(self.bot.roles['HalfOP'])
+        await author.add_roles(self.bot.roles['Moderator'])
         await ctx.send(f"{author.mention} is now using sudo. Welcome to the twilight zone!")
         msg = f"👮 **Sudo**: {author.mention} | {author}"
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff("HalfOP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
     async def unsudo(self, ctx: GuildContext):
@@ -81,12 +81,12 @@ class ModStaff(commands.Cog):
         if position is not StaffRank.HalfOP:
             await ctx.send("You are not HalfOP, therefore this command is not required.")
             return
-        await author.remove_roles(self.bot.roles['HalfOP'])
+        await author.remove_roles(self.bot.roles['Moderator'])
         await ctx.send(f"{author.mention} is no longer using sudo!")
         msg = f"🕵 **Unsudo**: {author.mention} | {author}"
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff("OP")
+    @is_staff("Moderator")
     @commands.guild_only()
     @commands.command(hidden=True)
     async def updatestaff(self, ctx: GuildContext):
