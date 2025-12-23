@@ -1,5 +1,6 @@
 *.ini
 *.sh
+!run.sh
 !dockerbuild.sh
 *.log*
 *.json
