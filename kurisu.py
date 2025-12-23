@@ -199,9 +199,8 @@ class Kurisu(commands.Bot):
         self.assistance_channels: tuple[discord.TextChannel | discord.VoiceChannel, ...] = ()
 
         self.staff_roles: dict[str, discord.Role] = {'Owner': self.roles['Owner'],
-                                                     #'Admin': self.roles['Admin'],
-                                                     #Moderator: self.roles[Moderator],
-                                                     #'Moderator': self.roles['Moderator'],
+                                                     'Admin': self.roles['Admin'],
+                                                     'Moderator': self.roles['Moderator'],
                                                      }
 
         self.err_channel = self.channels['bot-error']
@@ -264,7 +263,7 @@ class Kurisu(commands.Bot):
                 self.failed_cogs.append((extension, type(e.original).__name__, e.original))
 
     async def load_channels(self):
-        channels = ['announcements', 'rules', 'message-logs', 'meta', 'general', 'bot-cmds', 'staff-chat', 'mod-logs', 'server-logs', 'bot-error',
+        channels = ['announcements', 'rules', 'message-logs', 'meta', 'general', 'bot-cmds', 'mods', 'mod-logs', 'server-logs', 'bot-error',
                     'probation', 'member-count-logs', 'bot-dev']
 
         for n in channels:
@@ -285,7 +284,7 @@ class Kurisu(commands.Bot):
                 logger.warning("Failed to find channel %s", n)
 
     async def load_roles(self):
-        roles = ['Staff', 'Owner', 'Probation', "No-U", "NSFW Access", "User", "Announcement", "VoiceChat", "Server Booster", '🍰 birthday']
+        roles = ['Staff', 'Owner', 'Probation', "No-U", "NSFW Access", "User", "Announcement", "VoiceChat", "Server Booster", '🍰 birthday', "Admin", "Moderator", "No-Help", "help-mute"]
 
         for n in roles:
             db_role = await self.configuration.get_role(n)
