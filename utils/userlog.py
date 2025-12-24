@@ -52,11 +52,11 @@ action_messages = {
     'probate': ('\N{NO ENTRY SIGN}', 'Probated', 'probated {}'),
     'unprobate': ('\N{HEAVY LARGE CIRCLE}', 'Un-probated', 'un-probated {}'),
 
-    "verify": {'\N{WHITE HEAVY CHECK MARK}', "Verified", "Verified user {}"},
-    "un-verify": {'\N{NO ENTRY}', "Unverified", "Unverified user {}"},
+    "verify": ('\N{WHITE HEAVY CHECK MARK}', "Verified", "Verified user {}"),
+    "un-verify": ('\N{NO ENTRY}', "Unverified", "Unverified user {}"),
 
-    "give-nsfw": {'\N{WHITE HEAVY CHECK MARK}', "NSFW access given", "NSFW access given to user {}"},
-    "take-nsfw": {'\N{NO ENTRY}', "NSFW access taken", "NSFW access taken from user {}"},
+    "give-nsfw": ('\N{WHITE HEAVY CHECK MARK}', "NSFW access given", "NSFW access given to user {}"),
+    "take-nsfw": ('\N{NO ENTRY}', "NSFW access taken", "NSFW access taken from user {}"),
 
     'stream': ('\N{HEAVY LARGE CIRCLE}', 'Permission Granted', 'granted streaming permissions to {}'),
     'no-stream': ('\N{NO ENTRY SIGN}', 'Permission Revoked', 'revoked streaming permissions from {}'),
