@@ -90,7 +90,7 @@ class WarnManagerView(BaseLayoutView):
 
         self.warn = warn
 
-        section = ui.Section(ui.TextDisplay(await self.create_warn_info(warn)), accessory=ui.Thumbnail(media=self.user.avatar.display_avatar.url))
+        section = ui.Section(ui.TextDisplay(await self.create_warn_info(warn)), accessory=ui.Thumbnail(media=self.user.display_avatar.url))
         if self.warn_section is None or self.warn_buttons is None:
             self.warn_section = section
             self.warn_buttons = WarnButtons(self)
