@@ -90,7 +90,7 @@ class WarnManagerView(BaseLayoutView):
 
         self.warn = warn
 
-        section = ui.Section(ui.TextDisplay(await self.create_warn_info(warn)), accessory=ui.Thumbnail(media=self.user.avatar.url))
+        section = ui.Section(ui.TextDisplay(await self.create_warn_info(warn)), accessory=ui.Thumbnail(media=self.user.avatar.display_avatar.url))
         if self.warn_section is None or self.warn_buttons is None:
             self.warn_section = section
             self.warn_buttons = WarnButtons(self)
@@ -148,9 +148,11 @@ class WarnButtons(ui.ActionRow[WarnManagerView]):
     async def delete_warn(self, interaction: Interaction, button: Button):
         if self.__view.warn.state == WarnState.Valid:
             await interaction.response.send_modal(WarnReason(self.__view))
-        else:
-            await self.__view.bot.warns.restore_warning(self.__view.warn.warn_id)
-            await self.__view.reload()
+            return  # IMPORTANT: don't continue and try to edit_message
+
+        await self.__view.bot.warns.restore_warning(self.__view.warn.warn_id)
+        await self.__view.reload()
+
         await self.__view.set_warn(self.__view.warn.warn_id)
         self.update_labels()
         await interaction.response.edit_message(view=self.__view)
