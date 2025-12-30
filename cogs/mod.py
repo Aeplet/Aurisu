@@ -72,7 +72,6 @@ class Mod(commands.GroupCog):
             await self.bot.close()
 
     @is_staff("Helper")
-    @commands.guild_only()
     @commands.command(aliases=['ui'])
     async def userinfo(self, ctx: GuildContext, u: discord.Member | discord.User):
         """Shows information from a user. Staff and Helpers only."""
@@ -89,7 +88,6 @@ class Mod(commands.GroupCog):
                 ban = None
             await ctx.send(f"{basemsg}{f'**Banned**, reason: {ban.reason}' if ban is not None else ''}\n")
 
-    @commands.guild_only()
     @commands.command(aliases=['ui2'])
     async def userinfo2(self, ctx: GuildContext, user: discord.Member | discord.User = commands.Author):
         """Shows information from a user. Staff and Helpers only."""
