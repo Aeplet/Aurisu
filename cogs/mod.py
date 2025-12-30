@@ -87,7 +87,7 @@ class Mod(commands.GroupCog):
                     ban = await ctx.guild.fetch_ban(u)
                 except discord.NotFound:  # NotFound is raised if the user isn't banned
                     ban = None
-                await ctx.send(f"{basemsg}{f'**Banned**, reason: {ban.reason}' if ban is not None else ''}\n")
+            await ctx.send(f"{basemsg}{f'**Banned**, reason: {ban.reason}' if ban is not None else ''}\n")
 
     @commands.command(aliases=['ui2'])
     async def userinfo2(self, ctx: GuildContext, user: discord.Member | discord.User = commands.Author):
