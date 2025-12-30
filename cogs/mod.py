@@ -82,11 +82,12 @@ class Mod(commands.GroupCog):
                            f"activity = {u.activity.name if u.activity else None}\ncolour = {u.colour}\ntop_role = {role}\n"
                            f"guild_avatar= {f'<{u.guild_avatar}>' if u.guild_avatar else None}")
         else:
-            try:
-                ban = await ctx.guild.fetch_ban(u)
-            except discord.NotFound:  # NotFound is raised if the user isn't banned
-                ban = None
-            await ctx.send(f"{basemsg}{f'**Banned**, reason: {ban.reason}' if ban is not None else ''}\n")
+            if guild != None:
+                try:
+                    ban = await ctx.guild.fetch_ban(u)
+                except discord.NotFound:  # NotFound is raised if the user isn't banned
+                    ban = None
+                await ctx.send(f"{basemsg}{f'**Banned**, reason: {ban.reason}' if ban is not None else ''}\n")
 
     @commands.command(aliases=['ui2'])
     async def userinfo2(self, ctx: GuildContext, user: discord.Member | discord.User = commands.Author):
