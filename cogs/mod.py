@@ -82,7 +82,7 @@ class Mod(commands.GroupCog):
                            f"activity = {u.activity.name if u.activity else None}\ncolour = {u.colour}\ntop_role = {role}\n"
                            f"guild_avatar= {f'<{u.guild_avatar}>' if u.guild_avatar else None}")
         else:
-            if guild != None:
+            if ctx.guild != None:
                 try:
                     ban = await ctx.guild.fetch_ban(u)
                 except discord.NotFound:  # NotFound is raised if the user isn't banned
