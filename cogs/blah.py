@@ -38,7 +38,7 @@ class Blah(commands.Cog):
         """Triggers typing on a channel."""
         await channel.typing()
 
-    @is_staff("Owner")
+    @is_staff("Moderator")
     @commands.command()
     async def dm(self, ctx: KurisuContext, member: discord.Member, *, message: str):
         """Sends a message to the member."""
