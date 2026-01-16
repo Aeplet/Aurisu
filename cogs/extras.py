@@ -38,6 +38,7 @@ class TagsPaginator(BasePaginator):
         self.tags = tags
         self.tags_per_page = tags_per_page
         self.colour = colour or discord.Colour.purple()
+        self.restrictions = self.bot.restrictions
 
     def current(self):
         if embed := self.pages.get(self.idx):
