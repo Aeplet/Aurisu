@@ -431,7 +431,9 @@ class Events(commands.Cog):
                 case KillBoxState.Probate:
                     try:
                         await self.restrictions.add_restriction(message.author, Restriction.Probation, f"Posted a message in killbox {message.channel.mention}")
-                        await self.logs.post_action_log(self.bot, message.author, 'probate', reason=f"Posted a message in killbox {message.channel.mention}")
+                        mes = await self.bot.logs.post_message_log(":envelope: **Message posted**",
+                                                                   f"{message.author.mention} posted a message in killbox {message.channel.mention}",
+                                                                   message.content)
                         await message.delete();
                     except discord.Forbidden:
                         self.bot.actions.remove(f'wk:{message.author.id}')
