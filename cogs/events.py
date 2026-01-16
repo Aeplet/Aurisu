@@ -32,6 +32,7 @@ class Events(commands.Cog):
         self.bot: Kurisu = bot
         self.configuration = bot.configuration
         self.filters = self.bot.filters
+        self.restrictions = self.bot.restrictions
 
     # I hate naming variables sometimes
     user_ping_antispam: dict[int, Deque[tuple[discord.Message, int]]] = {}
