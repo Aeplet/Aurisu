@@ -30,7 +30,7 @@ class Modwatch(commands.Cog):
 
     @is_staff("Helper")
     @commands.command()
-    async def watch(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
+    async def watch(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
         """Adds a member to the watchlist."""
         if member.id in self.configuration.watch_list:
             await ctx.send("User is already being watched!")
@@ -41,7 +41,7 @@ class Modwatch(commands.Cog):
 
     @is_staff("Helper")
     @commands.command()
-    async def unwatch(self, ctx: GuildContext, member: discord.Member):
+    async def unwatch(self, ctx: GuildContext, member: discord.Member | discord.User):
         """Removes a member from the watchlist."""
         if member.id not in self.configuration.watch_list:
             await ctx.send("This user was not being watched.")

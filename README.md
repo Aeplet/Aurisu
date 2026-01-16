@@ -1,3 +1,7 @@
+# original kurisu readme below
+
+Not much to say here. (yet)
+
 # Kurisu
 
 A Discord server bot developed for [Nintendo Homebrew on Discord](https://discord.gg/C29hYvh). Maintained primarily by NH staff and helpers.

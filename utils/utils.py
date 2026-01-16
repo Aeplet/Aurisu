@@ -177,11 +177,12 @@ async def create_userinfo_embed(user: discord.Member | discord.User, guild: disc
             embed.description += f"\n**Guild Profile Picture:** [link]({user.guild_avatar})"
     else:
         member_type = "user"
-        try:
-            ban = await guild.fetch_ban(user)
-            embed.description += f"\n**Banned**, reason: {ban.reason}"
-        except discord.NotFound:
-            pass
+        if guild != None:
+            try:
+                ban = await guild.fetch_ban(user)
+                embed.description += f"\n**Banned**, reason: {ban.reason}"
+            except discord.NotFound:
+                pass
 
     member_type = member_type if not user.bot else "bot"
     embed.title = f"**Userinfo for {member_type} {user}**"

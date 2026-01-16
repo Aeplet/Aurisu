@@ -149,7 +149,7 @@ class Extras(commands.GroupCog):
         """About Aurisu"""
         embed = discord.Embed(title="Aurisu", color=discord.Color.green())
         embed.set_author(name=f"Maintained by {self.bot.guild.name} helpers and staff")
-        embed.set_thumbnail(url="https://nintendohomebrew.com/assets/img/nhmemes/kurisu.jpg")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/1448892465888362680/c942b731c3970e32ecab355df4cca9f6.webp?size=1024g")
         embed.url = "https://github.com/Aeplet/Aurisu"
         embed.description = f"Aurisu, the {self.bot.guild.name} Discord bot!"
         await ctx.send(embed=embed)
