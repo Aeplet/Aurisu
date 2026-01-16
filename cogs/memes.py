@@ -26,7 +26,7 @@ class Memes(commands.Cog):
         self.bot.loop.create_task(self.init_memes())
         self.extras = bot.extras
 
-        self.excluded = [self._listmemes, self.xiwarn, self.xipraise, self.gulag]
+        self.excluded = [self._listmemes]
 
         for command in self.walk_commands():
             if command not in self.excluded and not command.cooldown:
