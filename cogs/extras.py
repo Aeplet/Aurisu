@@ -169,7 +169,7 @@ class Extras(commands.GroupCog):
     @is_staff("Admin")
     @commands.command(name="listchannels", hidden=True, aliases=["lc"])
     async def list_channels_command(self, ctx: GuildContext):
-        ctx.channel.send("\n".join(x.name for x in ctx.bot.guilds[0].channels))
+        await ctx.send("\n".join(x.name for x in ctx.bot.guilds[0].channels))
 
     @commands.guild_only()
     @is_staff("Admin")
