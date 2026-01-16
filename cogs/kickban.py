@@ -183,52 +183,6 @@ class KickBan(commands.GroupCog):
             await interaction.response.send_message(f"{member} is now b&. 👍" + ("\nFailed to send DM message" if not msg_send else ""))
         await self.bot.logs.post_action_log(interaction.user, member, 'ban', reason=reason, until=unban_time)
 
-    @is_staff("Moderator")
-    @commands.bot_has_permissions(ban_members=True)
-    @commands.command(name="superban", aliases=["superyeet"])
-    async def superban(self, ctx: GuildContext, member: discord.Member | discord.User, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
-        """Bans a user from the server. OP+ only. Optional: [days] Specify up to 7 days of messages to delete."""
-        if await check_bot_or_staff(ctx, member, "ban"):
-            return
-
-        if isinstance(member, discord.Member):
-            msg = f"You were superbanned from {ctx.guild.name}."
-            if reason:
-                msg += " The given reason is: " + reason
-            msg += "\n\nThis ban does not expire.\n\nhttps://nintendohomebrew.com/assets/img/banned.gif"
-            await send_dm_message(member, msg, ctx)
-        try:
-            await ctx.guild.ban(member, reason=reason, delete_message_days=days)  # type: ignore
-        except discord.errors.Forbidden:
-            await ctx.send("Failed to ban member.")
-            return
-        await self.restrictions.remove_restriction(member, Restriction.Ban)
-        await ctx.send(f"{member} is now SUPER BANNED. 👍 https://nintendohomebrew.com/assets/img/banned.gif")
-        await self.bot.logs.post_action_log(ctx.author, member, 'ban', reason=reason)
-
-    @is_staff("Moderator")
-    @commands.bot_has_permissions(ban_members=True)
-    @commands.command(name="trainban", aliases=["ryanban"])
-    async def trainban(self, ctx: GuildContext, member: discord.Member | discord.User, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
-        """Bans a user from the server. OP+ only. Optional: [days] Specify up to 7 days of messages to delete."""
-        if await check_bot_or_staff(ctx, member, "ban"):
-            return
-
-        if isinstance(member, discord.Member):
-            msg = f"You were trains'd from {ctx.guild.name}."
-            if reason:
-                msg += " The given reason is: " + reason
-            msg += "\n\nThis ban does not expire.\n\nhttps://nintendohomebrew.com/assets/img/trains.gif"
-            await send_dm_message(member, msg, ctx)
-        try:
-            await ctx.guild.ban(member, reason=reason, delete_message_days=days)  # type: ignore
-        except discord.errors.Forbidden:
-            await ctx.send("Failed to ban member.")
-            return
-        await self.restrictions.remove_restriction(member, Restriction.Ban)
-        await ctx.send(f"{member} has been hit by a train. 👍 https://nintendohomebrew.com/assets/img/trains.gif")
-        await self.bot.logs.post_action_log(ctx.author, member, 'ban', reason=reason)
-
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="unban", aliases=["unyeet"])
     async def unban_member(self, ctx: GuildContext, user: discord.Member | discord.User, *, reason: Optional[str] = None):
