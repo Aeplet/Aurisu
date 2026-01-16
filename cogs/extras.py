@@ -167,6 +167,12 @@ class Extras(commands.GroupCog):
 
     @commands.guild_only()
     @is_staff("Admin")
+    @commands.command(name="listchannels", hidden=True, aliases=["lc"])
+    async def list_channels_command(self, ctx: GuildContext):
+        ctx.channel.send("\n".join(x.name for x in ctx.bot.guilds[0].channels))
+
+    @commands.guild_only()
+    @is_staff("Admin")
     @commands.command(hidden=True, aliases=['copyrole', 'crp'])
     async def copyroleperms(self, ctx: GuildContext, role: discord.Role, src_channel: discord.TextChannel | discord.VoiceChannel, des_channels: commands.Greedy[discord.TextChannel | discord.VoiceChannel]):
         """Copy role overwrites from a channel to channels"""
