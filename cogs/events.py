@@ -427,6 +427,13 @@ class Events(commands.Cog):
                     except discord.Forbidden:
                         self.bot.actions.remove(f'wb:{message.author.id}')
                     return
+                case KillBoxState.Probate:
+                    try:
+                        await self.restrictions.add_restriction(message.author, Restriction.Probation, f"Posted a message in killbox {message.channel.mention}")
+                        await self.logs.post_action_log(self.bot, message.author, 'probate', reason=f"Posted a message in killbox {message.channel.mention}")
+                        await message.delete();
+                    except discord.Forbidden:
+                        self.bot.actions.remove(f'wk:{message.author.id}')
         await self.scan_message(message)
         # self.bot.loop.create_task(self.user_ping_check(message)) replaced by automod
         self.bot.loop.create_task(self.user_spam_check(message))

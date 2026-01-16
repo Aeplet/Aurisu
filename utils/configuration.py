@@ -31,6 +31,7 @@ class KillBoxState(IntEnum):
     Disabled = 0
     Kick = 1
     Ban = 2
+    Probate = 3
 
 
 class DBChannel(NamedTuple):
