@@ -114,7 +114,7 @@ class RestrictionsManager(BaseManager, db_manager=RestrictionsDatabaseManager):
             if restriction is not Restriction.Ban and isinstance(user, discord.Member):
                 try:
                     if not restriction == Restriction.Probation:
-                        appeal_site = "Stubbed for now" #self.bot.channels['appeals'].mention
+                        appeal_site = self.bot.channels['appeals'].mention
                     else:
                         appeal_site = self.bot.channels['probation'].mention
                     await user.add_roles(self.bot.roles[restriction.value])
