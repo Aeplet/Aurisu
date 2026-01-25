@@ -24,8 +24,8 @@ if TYPE_CHECKING:
 class PurgeFlags(commands.FlagConverter, prefix='--', delimiter=' '):
     before: Optional[discord.Message]
     after: Optional[discord.Message]
-    ignore_list: list[discord.Member] = commands.flag(name='ignore', default=lambda ctx: [])
-    exclusive_list: list[discord.Member] = commands.flag(name='only', default=lambda ctx: [])
+    ignore_list: list[discord.Member | discord.User] = commands.flag(name='ignore', default=lambda ctx: [])
+    exclusive_list: list[discord.Member | discord.User] = commands.flag(name='only', default=lambda ctx: [])
 
 
 @app_commands.default_permissions(manage_nicknames=True)
