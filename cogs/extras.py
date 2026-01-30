@@ -475,20 +475,15 @@ class Extras(commands.GroupCog):
 
         await interaction.response.send_message(file=file or MISSING, embed=embed)
 
-    @commands.dm_only()
-    @commands.cooldown(rate=1, per=21600.0, type=commands.BucketType.member)
     @commands.command()
     async def nickme(self, ctx: KurisuContext, *, nickname: str):
-        """Change your nickname. Nitro Booster and crc only. Works only in DMs. 6 Hours Cooldown."""
+        """Change your nickname."""
         member = self.bot.guild.get_member(ctx.author.id)
 
         if member is None:
             return await ctx.send("Somehow you aren't in the server.")
-
-        if self.bot.roles['crc'] not in member.roles and not member.premium_since:
-            await ctx.send("This command can only be used by Nitro Boosters and members of crc!")
-            ctx.command.reset_cooldown(ctx)
-        elif self.check_nickname(nickname):
+            
+        if self.check_nickname(nickname):
             try:
                 await member.edit(nick=nickname)
                 await ctx.send(f"Your nickname is now `{nickname}`!")
