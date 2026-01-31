@@ -29,7 +29,7 @@ class Soap(commands.Cog):
         if ctx.guild is None:
             raise commands.NoPrivateMessage()
         author = ctx.author
-        if not check_staff(self.bot, 'Helper', author.id) and not check_staff(self.bot, 'Staff', author.id) and (self.bot.roles['crc'] not in author.roles):
+        if not check_staff(self.bot, 'Helper', author.id) and not check_staff(self.bot, 'Staff', author.id):
             raise InsufficientStaffRank("You can't use this command.")
         return True
 
@@ -49,14 +49,6 @@ class Soap(commands.Cog):
         await self.bot.configuration.add_channel('soaps', category)
         self.soaps_category = category
         await ctx.send("Soaps category set.")
-
-    @commands.guild_only()
-    @commands.command(aliases=["soup", "soap"])
-    async def createsoap(self, ctx: GuildContext, helpee: discord.Member):
-        """Creates a 🧼 help channel for a user. crc, small help, helper+ only."""
-        if not self.soaps_category:
-            return await ctx.send("The soaps category is not set.")
-        await ctx.send("Soaps are unavailable at this time.")
 
     @is_staff('Helper')
     @commands.guild_only()
