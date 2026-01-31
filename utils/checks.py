@@ -61,12 +61,7 @@ async def check_bot_or_staff(ctx: commands.Context | discord.Interaction, target
 
 def check_if_user_can_sr():
     async def predicate(ctx):
-        author = ctx.author
-        if not check_staff(ctx.bot, 'Helper', author.id) and (ctx.bot.roles['Verified'] not in author.roles) and (
-                ctx.bot.roles['Trusted'] not in author.roles) and (ctx.bot.roles['Retired Staff'] not in author.roles):
-            return False
         return True
-
     return commands.check(predicate)
 
 
