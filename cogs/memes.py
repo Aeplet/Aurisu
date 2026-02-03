@@ -134,6 +134,12 @@ class Memes(commands.Cog):
         await ctx.send(f"Happy birthday {member.mention}!")
 
     @commands.command(hidden=True)
+    async def hru(self, ctx: KurisuContext):
+        """Finally asking how Aurisu is."""
+        feeling_list = ["AWFUL", "stfu", "alright", "I am a bot what the fuck do you think?", "DREAMING ABOUT OBTAINING XS00000003", "Look at the assistance channels for two minutes and tell me how **you** think I am."]
+        await ctx.send(random.choice(feeling_list))
+
+    @commands.command(hidden=True)
     async def rotate(self, ctx: KurisuContext, u: discord.Member, degrees: int = None):
         """Rotate a user 🌪️"""
         MAX_DEGREES = 10000
