@@ -249,13 +249,6 @@ class Assistance(commands.GroupCog):
     @is_staff('Helper')
     @commands.guild_only()
     @commands.command(hidden=True)
-    async def appeals(self, ctx: GuildContext):
-        """Reminds user where they are. (3) Helper+ only"""
-        await self.send_channel_warn(ctx, self.bot.channels['appeals'])
-
-    @is_staff('Helper')
-    @commands.guild_only()
-    @commands.command(hidden=True)
     async def ot(self, ctx: GuildContext):
         """Reminds user where they are. (4) Helper+ only"""
         await self.send_channel_warn(ctx, self.bot.channels['general'])

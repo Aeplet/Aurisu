@@ -109,7 +109,7 @@ class Events(commands.Cog):
                         try:
                             await message.author.send(
                                 f"Please read {self.bot.channels['rules'].mention}. "
-                                f"Server invites must be approved by staff. To contact staff send a message to <@415606064856301589>.")
+                                f"Server invites must be approved by staff. To contact staff send a message to <@1464770820797632699>.")
                         except discord.errors.Forbidden:
                             pass
             # if the message was deleted don't reduce approved invites uses
@@ -221,7 +221,7 @@ class Events(commands.Cog):
                 if len(self.userbot_yeeter[message.author.id]) == 2:
                     if isinstance(message.author, discord.Member):
                         msg = (f"You have been banned from {self.bot.guild.name} for linking scamming sites in multiple channels. "
-                               "If you think this is a mistake contact <@415606064856301589> (aep) on discord")
+                               "If you think this is a mistake contact <@1464770820797632699> (aep) on discord")
                         await send_dm_message(message.author, msg)
                         self.bot.actions.append(f'wk:{message.author.id}')
                         await message.author.kick(reason="Linking scamming links in multiple channels.")
@@ -287,7 +287,7 @@ class Events(commands.Cog):
                 # If the bot can't time out the member it's quite likely they shouldn't be timed out for this anyway
                 return
             msg_user = "You were automatically timed-out for sending too many messages in a short period of time!\n\n" \
-                       "If you believe this was done in error, send a direct message (DM) to <@!415606064856301589> to contact staff."
+                       "If you believe this was done in error, send a direct message (DM) to <@!1464770820797632699> to contact staff."
             await send_dm_message(message.author, msg_user)
             log_msg = f"🔇 **Auto-timeout**: {message.author.mention} timed out for spamming | {message.author}\n🗓 __Creation__: {message.author.created_at}\n🏷 __User ID__: {message.author.id}"
             embed = discord.Embed(title="Deleted messages", color=discord.Color.gold())
@@ -326,7 +326,7 @@ class Events(commands.Cog):
             msg_user = ("You were automatically placed under probation "
                         "for mentioning too many users in a short period of time!\n\n"
                         "If you believe this was done in error, send a direct "
-                        "message (DM) to <@!415606064856301589> to contact staff.")
+                        "message (DM) to <@!1464770820797632699> to contact staff.")
             await send_dm_message(message.author, msg_user)
             log_msg = f"🚫 **Auto-probated**: {message.author.mention} probated for mass user mentions | {message.author}\n" \
                       f"🗓 __Creation__: {message.author.created_at}\n🏷 __User ID__: {message.author.id}"

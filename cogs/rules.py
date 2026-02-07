@@ -94,11 +94,11 @@ Staff instruction is to be followed; refusal to do so may result in moderation a
 
         self.mod_list = f"""🛠️ __*Mod List*__
 **Please do not send a direct message unless asked.
-Please contact <@!415606064856301589> if you have concerns about moderation.**\n"""
+Please contact <@!1464770820797632699> if you have concerns about moderation.**\n"""
 
         self.helper_list = f"""🤝 __*Helper List*__
 **Please do not send a direct message unless asked.
-Please contact <@!415606064856301589> if you have concerns about moderation.**\n"""
+Please contact <@!1464770820797632699> if you have concerns about moderation.**\n"""
 
         self.nickname_policy = """🏷️ __*Username/Nickname and Avatar policy*__
 Usernames must begin with at least one alphanumeric character and are to be primarily alphanumeric, to keep them easy to tag and read.

@@ -264,7 +264,7 @@ class Kurisu(commands.Bot):
 
     async def load_channels(self):
         channels = ['announcements', 'rules', 'message-logs', 'meta', 'general', 'bot-cmds', 'mods', 'mod-logs', 'server-logs', 'bot-error',
-                    'probation', 'member-count-logs', 'bot-dev', 'watch-logs', 'upload-logs', 'meta', 'appeals']
+                    'probation', 'member-count-logs', 'bot-dev', 'watch-logs', 'upload-logs', 'meta']
 
         for n in channels:
             db_channel = await self.configuration.get_channel_by_name(n)

@@ -358,25 +358,6 @@ class Mod(commands.GroupCog):
 
     @is_staff("Moderator")
     @commands.guild_only()
-    @commands.command(aliases=["appealsmute"])
-    async def appealmute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
-        """Mutes a user, so they can't speak in appeals. Staff only."""
-        await self.bot.restrictions.add_restriction(member, Restriction.AppealsMute, reason)
-        await ctx.send(f"{member.mention} can no longer speak in appeals.")
-        await self.logs.post_action_log(ctx.author, member, 'appeals-mute', reason=reason)
-
-    @is_staff("Moderator")
-    @commands.guild_only()
-    @commands.bot_has_permissions(manage_roles=True)
-    @commands.command(aliases=["appealsunmute"])
-    async def appealunmute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
-        """Unmutes a user so they can speak in appeals. Staff only."""
-        await self.bot.restrictions.remove_restriction(member, Restriction.AppealsMute)
-        await ctx.send(f"{member.mention} can now speak in appeals again.")
-        await self.logs.post_action_log(ctx.author, member, 'appeals-unmute', reason=reason)
-
-    @is_staff("Moderator")
-    @commands.guild_only()
     @commands.bot_has_permissions(manage_roles=True)
     @commands.command()
     async def mute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
@@ -982,7 +963,6 @@ class Mod(commands.GroupCog):
         Choice(name='Take Meme commands access', value='No-Memes'),
         Choice(name='Take Art-channel access', value='No-art'),
         Choice(name='Take animal channel access', value='No-animals'),
-        Choice(name='Mute in appeals', value='appeal-mute'),
         Choice(name='Mute in meta', value='meta-mute')
     ])
     async def giverestriction(self,
@@ -1005,7 +985,6 @@ class Mod(commands.GroupCog):
                               'No-Memes': 'take-memes',
                               'No-art': 'take-art',
                               'No-animals': 'take-animals',
-                              'appeal-mute': 'appeals-mute',
                               'meta-mute': 'meta-mute'}
 
         if length:

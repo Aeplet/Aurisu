@@ -29,7 +29,6 @@ class Restriction(Enum):
     HelpMute = 'help-mute'
     NoElsewhere = 'No-elsewhere'
     NoEmbed = 'No-Embed'
-    AppealsMute = 'appeal-mute'
     NoArt = 'No-art'
     NoAnimals = 'No-animals'
     NoTech = 'No-Tech'
@@ -44,7 +43,6 @@ messages = {Restriction.Muted: "You were muted!",
             Restriction.HelpMute: "You were muted in the help channels!",
             Restriction.NoElsewhere: "Your elsewhere access was revoked!",
             Restriction.NoEmbed: "You lost embed and upload permissions!",
-            Restriction.AppealsMute: "You were appeal muted!",
             Restriction.NoArt: "Your art channel access was revoked!",
             Restriction.NoAnimals: "Your animal channel access was revoked!",
             Restriction.NoTech: "You lost access to the tech channel",
@@ -113,13 +111,8 @@ class RestrictionsManager(BaseManager, db_manager=RestrictionsDatabaseManager):
 
             if restriction is not Restriction.Ban and isinstance(user, discord.Member):
                 try:
-                    if not restriction == Restriction.Probation:
-                        appeal_site = self.bot.channels['appeals'].mention
-                    else:
-                        appeal_site = self.bot.channels['probation'].mention
+                    appeal_site = "<@1464770820797632699>"
                     await user.add_roles(self.bot.roles[restriction.value])
-                    if restriction is Restriction.Muted:
-                        await user.remove_roles(self.bot.roles['#elsewhere'], self.bot.roles['#art-discussion'])
                     msg_user = messages[restriction]
                     if reason:
                         msg_user += " The given reason is: " + reason
