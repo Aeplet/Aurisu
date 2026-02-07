@@ -476,13 +476,13 @@ async def startup():
 
     async with asyncpg.create_pool(DATABASE_URL, min_size=20, max_size=20) as pool:
         logger.info("Starting Aurisu on commit %s on branch %s", commit, branch)
-        bot = Kurisu(command_prefix=['.', '!'], description=f"Aurisu, the bot for {self.bot.guild.name}!", commit=commit,
+        bot = Kurisu(command_prefix=['.', '!'], description=f"Aurisu, the bot for Wiivolution!", commit=commit,
                      branch=branch, pool=pool)
         bot.help_command = KuriHelp()
 
         @bot.tree.command(name='help')
         async def help_app_command(interaction: discord.Interaction):
-            """Help for kurisu slash commands."""
+            """Help for Aurisu slash commands."""
 
             mapping: dict[AppCommand, list[AppCommandGroup]] = {}
             for c in bot.tree.app_commands:
