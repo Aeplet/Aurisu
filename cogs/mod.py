@@ -360,7 +360,7 @@ class Mod(commands.GroupCog):
     @commands.guild_only()
     @commands.bot_has_permissions(manage_roles=True)
     @commands.command()
-    async def mute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
+    async def oldmute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
         """Mutes a user so they can't speak. Staff only."""
         if await check_bot_or_staff(ctx, member, "mute"):
             return
@@ -391,7 +391,7 @@ class Mod(commands.GroupCog):
     @is_staff("Moderator")
     @commands.guild_only()
     @commands.command()
-    async def unmute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
+    async def oldunmute(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
         """Unmutes a user so they can speak. Staff only."""
         await self.bot.restrictions.remove_restriction(member, Restriction.Muted)
         await ctx.send(f"{member.mention} can now speak again.")
@@ -399,7 +399,7 @@ class Mod(commands.GroupCog):
 
     @is_staff("Moderator")
     @commands.guild_only()
-    @commands.command(aliases=['timemute'])
+    @commands.command(aliases=['timemute', 'mute'])
     async def timeout(self, ctx: GuildContext, member: discord.Member, length: int = commands.parameter(converter=DateOrTimeToSecondsConverter), *, reason: Optional[str]):
         """Times out a user. Staff only.\n\nLength format: #d#h#m#s"""
         if await check_bot_or_staff(ctx, member, "timeout"):
@@ -424,7 +424,7 @@ class Mod(commands.GroupCog):
 
     @is_staff("Moderator")
     @commands.guild_only()
-    @commands.command()
+    @commands.command(name="untimeout", aliases=["unmute"])
     async def untimeout(self, ctx: GuildContext, member: discord.Member, *, reason: Optional[str]):
         """Removes a timeout from a user. Staff only."""
         if member.timed_out_until is None:
