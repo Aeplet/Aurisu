@@ -613,7 +613,7 @@ class Mod(commands.GroupCog):
             await ctx.send("Mention at least one user")
             return
         for member in members:
-            await member.remove_roles(self.bot.roles['Small Help'])
+            await member.remove_roles(self.bot.roles['Small Help Access'])
         await ctx.send(f"{', '.join(x.mention for x in members)} can no longer access the small help channel.")
         msg = f"⭕️ **Small help access revoked**: {ctx.author.mention} revoked access to small help channel from {', '.join(f'{x.mention} | {x}'for x in members)}"
         await self.bot.channels['mod-logs'].send(msg)
@@ -627,7 +627,7 @@ class Mod(commands.GroupCog):
             await ctx.send("Mention at least one user")
             return
         for member in members:
-            await member.add_roles(self.bot.roles['Small Help'])
+            await member.add_roles(self.bot.roles['Small Help Access'])
         await ctx.send(f"{', '.join(x.mention for x in members)} can access the small help channel.")
         msg = f"⭕️ **Small help access granted**: {ctx.author.mention} granted access to small help channel to {', '.join(f'{x.mention} | {x}'for x in members)}"
         await self.bot.channels['mod-logs'].send(msg)
