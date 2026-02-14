@@ -340,7 +340,7 @@ class Mod(commands.GroupCog):
     @is_staff("Owner")
     @commands.guild_only()
     @commands.command(name="purgeuser", aliases=['clearuser'], extras={'examples': ['.purgeuser 415606064856301589 10']})
-    async def purgeuser(self, ctx: GuildContext, member: discord.Member | discord.User, amount: int, *, reason: Optional[str] = None)
+    async def purgeuser(self, ctx: GuildContext, member: discord.Member | discord.User, amount: int, *, reason: Optional[str] = None):
         """Purge all messages across channels from a user. This is slow and can break things, so it is currently strictly Owner only. Purges 1000 messages by default if an amount is not given."""
         await ctx.send(f"Starting cross channel purge for {member} ({member.id})")
         total_deleted = 0
