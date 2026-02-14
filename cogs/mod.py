@@ -364,7 +364,7 @@ class Mod(commands.GroupCog):
             try:
                 async for msg in channel.history(limit=1000):
                     if msg.author.id == member.id:
-                        await msg.delete(reason=reason)
+                        await msg.delete()
                         total_deleted += 1
                         if total_deleted >= amount:
                             break
