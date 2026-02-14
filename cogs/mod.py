@@ -351,7 +351,7 @@ class Mod(commands.GroupCog):
                     continue
                 try:
                     deleted = await channel.purge(
-                        limit=limit,
+                        limit=amount,
                         check=lambda m: m.author.id == member.id,
                         reason=reason
                     )
