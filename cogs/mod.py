@@ -339,27 +339,44 @@ class Mod(commands.GroupCog):
 
     @is_staff("Owner")
     @commands.guild_only()
-    @commands.command(name="purgeuser", aliases=['clearuser'], extras={'examples': ['.purgeuser 415606064856301589 10']})
-    async def purgeuser(self, ctx: GuildContext, member: discord.Member | discord.User, amount: int, *, reason: Optional[str] = None):
-        """Purge all messages across channels from a user. This is slow and can break things, so it is currently strictly Owner only. Purges 1000 messages by default if an amount is not given."""
+    @commands.command(
+        name="purgeuser",
+        aliases=["clearuser"],
+        extras={"examples": [".purgeuser 415606064856301589 10"]}
+    )
+    async def purgeuser(
+        self,
+        ctx: GuildContext,
+        member: discord.Member | discord.User,
+        amount: int,
+        *,
+        reason: Optional[str] = None
+    ):
         await ctx.send(f"Starting cross channel purge for {member} ({member.id})")
+
         total_deleted = 0
-        for channel in ctx.guild.channels:
-            if isinstance(channel, discord.abc.Messageable):
-                perms = channel.permissions_for(ctx.guild.me)
-                if not (perms.view_channel and perms.read_message_history and perms.manage_messages):
-                    continue
-                try:
-                    deleted = await channel.purge(
-                        limit=amount,
-                        check=lambda m: m.author.id == member.id,
-                        reason=reason
-                    )
-                    total_deleted += len(deleted)
-                except (discord.Forbidden, discord.HTTPException):
-                    await ctx.send(f"Failed to delete messages from user {member.id} ({member.mention}) in channel ({channel.id}) {channel.mention}")
-                    continue
-        await ctx.send(f"Done. Deleted {total_deleted} messages from {member} ({member.id}).")
+        for channel in ctx.guild.text_channels:
+            if total_deleted >= amount:
+                break
+            perms = channel.permissions_for(ctx.guild.me)
+            if not (perms.view_channel and perms.read_message_history and perms.manage_messages):
+                continue
+            try:
+                async for msg in channel.history(limit=1000):
+                    if msg.author.id == member.id:
+                        await msg.delete(reason=reason)
+                        total_deleted += 1
+                        if total_deleted >= amount:
+                            break
+            except (discord.Forbidden, discord.HTTPException):
+                await ctx.send(
+                    f"Failed deleting from {channel.mention} ({channel.id})"
+                )
+                continue
+
+        await ctx.send(
+            f"Done. Deleted {total_deleted} messages from {member} ({member.id})."
+        )
 
     @is_staff("Moderator")
     @commands.guild_only()
