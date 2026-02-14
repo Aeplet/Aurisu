@@ -573,43 +573,6 @@ class Mod(commands.GroupCog):
 
     @is_staff("Helper")
     @commands.guild_only()
-    @commands.command(aliases=["notech", "technt"])
-    async def taketech(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
-        """Remove access to the tech channel. Staff and Helpers only."""
-        if await check_bot_or_staff(ctx, member, "taketech"):
-            return
-        await self.restrictions.add_restriction(member, Restriction.NoTech, reason)
-        await ctx.send(f"{member.mention} can no longer access the tech channel.")
-        await self.logs.post_action_log(ctx.author, member, 'take-tech', reason=reason)
-
-    @is_staff("Helper")
-    @commands.guild_only()
-    @commands.command(aliases=["yestech"])
-    async def givetech(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
-        """Restore access to the tech channel. Staff and Helpers only."""
-        await self.restrictions.remove_restriction(member, Restriction.NoTech)
-        await ctx.send(f"{member.mention} can access the tech channel again.")
-        await self.logs.post_action_log(ctx.author, member, 'take-tech', reason=reason)
-
-    @is_staff("Helper")
-    @commands.guild_only()
-    @commands.command(aliases=["timenotech"])
-    async def timetaketech(self, ctx: GuildContext, member: discord.Member, length: int = commands.parameter(converter=DateOrTimeToSecondsConverter), *, reason: Optional[str]):
-        """Restricts a user from the tech channel for a limited period of time. Staff and Helpers only.\n\nLength format: #d#h#m#s"""
-        if await check_bot_or_staff(ctx, member, "taketech"):
-            return
-
-        delta = timedelta(seconds=length)
-        timestamp = datetime.now(self.bot.tz)
-
-        notech_expiration = timestamp + delta
-
-        await self.restrictions.add_restriction(member, Restriction.NoTech, reason, end_date=notech_expiration)
-        await ctx.send(f"{member.mention} can no longer speak in the tech channel.")
-        await self.logs.post_action_log(ctx.author, member, 'take-tech', reason=reason, until=notech_expiration)
-
-    @is_staff("Helper")
-    @commands.guild_only()
     @commands.command(aliases=["mutehelp"])
     async def helpmute(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
         """Remove speak perms to the assistance channels. Staff and Helpers only."""
@@ -644,6 +607,43 @@ class Mod(commands.GroupCog):
         await self.restrictions.remove_restriction(member, Restriction.HelpMute)
         await ctx.send(f"{member.mention} can now speak in the help channels again.")
         await self.logs.post_action_log(ctx.author, member, 'help-unmute', reason=reason)
+
+    @is_staff("Helper")
+    @commands.guild_only()
+    @commands.command(aliases=["mutedev"])
+    async def devmute(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
+        """Remove speak perms to the dev channels. Staff and Helpers only."""
+        if await check_bot_or_staff(ctx, member, "devmute"):
+            return
+        await self.restrictions.add_restriction(member, Restriction.DevMute, reason)
+        await ctx.send(f"{member.mention} can no longer speak in the dev channels.")
+        await self.logs.post_action_log(ctx.author, member, 'dev-mute', reason=reason)
+
+    @is_staff("Helper")
+    @commands.guild_only()
+    @commands.command(aliases=["timemutedev"])
+    async def timedevmute(self, ctx: GuildContext, member: discord.Member, length: int = commands.parameter(converter=DateOrTimeToSecondsConverter), *, reason: Optional[str]):
+        """Restricts a user from speaking in Dev Channels for a limited period of time. Staff and Helpers only.\n\nLength format: #d#h#m#s"""
+        if await check_bot_or_staff(ctx, member, "devmute"):
+            return
+        delta = timedelta(seconds=length)
+        timestamp = datetime.now(self.bot.tz)
+
+        devmute_expiration = timestamp + delta
+        unmute_time_string = format_dt(devmute_expiration)
+
+        await self.restrictions.add_restriction(member, Restriction.DevMute, reason, end_date=devmute_expiration)
+        await ctx.send(f"{member.mention} can no longer speak in the dev channels until {devmute_expiration}.")
+        await self.logs.post_action_log(ctx.author, member, 'dev-mute', reason=reason, until=devmute_expiration)
+
+    @is_staff("Helper")
+    @commands.guild_only()
+    @commands.command()
+    async def devunmute(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
+        """Restores speak access to dev channels. Helpers+ only."""
+        await self.restrictions.remove_restriction(member, Restriction.DevMute)
+        await ctx.send(f"{member.mention} can now speak in the dev channels again.")
+        await self.logs.post_action_log(ctx.author, member, 'dev-unmute', reason=reason)
 
     @is_staff("Helper")
     @commands.guild_only()
