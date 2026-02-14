@@ -34,6 +34,7 @@ class Restriction(Enum):
     NoTech = 'No-Tech'
     NoMemes = 'No-Memes'
     NoU = 'No-U'
+    DevMute = 'dev-mute'
 
 
 messages = {Restriction.Muted: "You were muted!",
@@ -47,7 +48,8 @@ messages = {Restriction.Muted: "You were muted!",
             Restriction.NoAnimals: "Your animal channel access was revoked!",
             Restriction.NoTech: "You lost access to the tech channel",
             Restriction.NoMemes: "You lost access to meme commands",
-            Restriction.NoU: "You've been sent to the void"}
+            Restriction.NoU: "You've been sent to the void",
+            Restriction.DevMute: "You were muted in the dev channels!"}
 
 
 class TimedRestriction:
