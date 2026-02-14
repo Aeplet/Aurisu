@@ -36,6 +36,9 @@ action_messages = {
     'help-mute': ('\N{SPEAKER WITH CANCELLATION STROKE}', 'Help mute', 'removed speak access in help channels from {}'),
     'help-unmute': ('\N{SPEAKER}', 'Help unmute', 'help unmuted {}'),
 
+    'dev-mute': ('\N{SPEAKER WITH CANCELLATION STROKE}', 'Dev mute', 'removed speak access in dev channels from {}'),
+    'dev-unmute': ('\N{SPEAKER}', 'Dev unmute', 'dev unmuted {}'),
+
     'give-art': ('\N{HEAVY LARGE CIRCLE}', 'Art access restore', 'restored art access for {}'),
     'take-art': ('\N{NO ENTRY SIGN}', 'Art access taken', 'took art access from {}'),
     'take-animals': ('\N{NO ENTRY SIGN}', 'Animal access taken', 'took animals access from {}'),
