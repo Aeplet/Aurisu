@@ -296,7 +296,7 @@ class Extras(commands.GroupCog):
         """Embed content."""
         await ctx.send(embed=discord.Embed(description=text))
 
-    @is_staff("Moderator")
+    @is_staff("Owner")
     @commands.guild_only()
     @commands.command()
     async def prune30(self, ctx: GuildContext, key=""):
@@ -320,14 +320,14 @@ class Extras(commands.GroupCog):
         msg = f"👢 **Prune**: {ctx.author.mention} started a prune."
         await self.bot.channels['mod-logs'].send(msg)
 
-    @is_staff("Moderator")
+    @is_staff("Owner")
     @commands.command()
     async def disableleavelogs(self, ctx: KurisuContext):
         """DEBUG COMMAND"""
         self.bot.pruning = True
         await ctx.send("disable")
 
-    @is_staff("Moderator")
+    @is_staff("Owner")
     @commands.command()
     async def enableleavelogs(self, ctx: KurisuContext):
         """DEBUG COMMAND"""
