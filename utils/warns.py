@@ -48,7 +48,7 @@ warn_extras = (
     'automatic ban.',
     # fourth warn
     'You were kicked because of this warning. This is your final warning. You can join again, but **one more warn will '
-    'result in a ban**.'
+    'result in a ban**.',
     # fifth warn
     'You were automatically banned due to five warnings.'
 )
