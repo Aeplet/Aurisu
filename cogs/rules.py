@@ -219,8 +219,8 @@ https://discord.gg/wxfWSmyZ3x"""
 
 async def setup(bot):
     for rule in bot.configuration.rules.values():
-        if rule.number in {4, 14}:
-            continue  # 4 and 14 handled manually for simple embed
+        if rule.number in {}: # add exception rules here
+            continue
         cmd = create_rule_cmd(rule)
         setattr(Rules, f"r{rule.number}", cmd)
         Rules.__cog_commands__.append(cmd)
