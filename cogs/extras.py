@@ -145,14 +145,14 @@ class Extras(commands.GroupCog):
         '''
         await ctx.send(inspect.cleandoc(msg))
 
-    @commands.command(aliases=['about', 'kurisu'])
-    async def aurisu(self, ctx: KurisuContext):
-        """About Aurisu"""
-        embed = discord.Embed(title="Aurisu", color=discord.Color.green())
+    @commands.command(aliases=['about', 'kurisu', 'aurisu'])
+    async def aerisu(self, ctx: KurisuContext):
+        """About Aerisu"""
+        embed = discord.Embed(title="Aerisu", color=discord.Color.green())
         embed.set_author(name=f"Maintained by {self.bot.guild.name} helpers and staff")
-        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/1448892465888362680/c942b731c3970e32ecab355df4cca9f6.webp?size=1024g")
-        embed.url = "https://github.com/Aeplet/Aurisu"
-        embed.description = f"Aurisu, the {self.bot.guild.name} Discord bot!"
+        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/1448892465888362680/dcf6a8fdcc07e37b069725ec036db706.webp?size=1024")
+        embed.url = "https://github.com/Aeplet/Aerisu"
+        embed.description = f"Aerisu, the {self.bot.guild.name} Discord bot!"
         await ctx.send(embed=embed)
 
     @commands.guild_only()

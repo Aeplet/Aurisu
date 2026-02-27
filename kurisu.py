@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 # Kurisu by Nintendo Homebrew
-# Modified by Aep, into Aurisu
+# Modified by Aep, into Aerisu
 # license: Apache License 2.0
-# https://github.com/Aeplet/Aurisu
+# https://github.com/Aeplet/Aerisu
 # https://github.com/nh-server/Kurisu
 
 import aiohttp
@@ -475,14 +475,14 @@ async def startup():
         branch = os.environ.get('COMMIT_BRANCH')
 
     async with asyncpg.create_pool(DATABASE_URL, min_size=20, max_size=20) as pool:
-        logger.info("Starting Aurisu on commit %s on branch %s", commit, branch)
-        bot = Kurisu(command_prefix=['.', '!'], description=f"Aurisu, the bot for Wiivolution!", commit=commit,
+        logger.info("Starting Aerisu on commit %s on branch %s", commit, branch)
+        bot = Kurisu(command_prefix=['.', '!'], description=f"Aerisu, the bot for Wiivolution!", commit=commit,
                      branch=branch, pool=pool)
         bot.help_command = KuriHelp()
 
         @bot.tree.command(name='help')
         async def help_app_command(interaction: discord.Interaction):
-            """Help for Aurisu slash commands."""
+            """Help for Aerisu slash commands."""
 
             mapping: dict[AppCommand, list[AppCommandGroup]] = {}
             for c in bot.tree.app_commands:

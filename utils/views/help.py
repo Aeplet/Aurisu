@@ -79,8 +79,8 @@ class MainHelpPaginator(BasePaginator):
     def create_embed(self, mapping: dict[Cog, list[Command]] | dict[AppCommand, list[AppCommandGroup]]):
         embed = discord.Embed(colour=self.ctx.bot.colour)
 
-        embed.title = "Aurisu, the bot for Wiivolution"
-        embed.description = f"{self.ctx.bot.description}\n\nBelow you will find the categories of commands in Aurisu:"
+        embed.title = "Aerisu, the bot for Wiivolution"
+        embed.description = f"{self.ctx.bot.description}\n\nBelow you will find the categories of commands in Aerisu:"
         if not self.ctx.interaction:
             embed.set_footer(
                 text=f"Use {self.ctx.clean_prefix}help [category] for more info about a category or select a category below.")
