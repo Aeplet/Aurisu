@@ -90,7 +90,7 @@ class KickBan(commands.GroupCog):
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="ban", aliases=["yeet"])
     async def ban_member(self, ctx: GuildContext, member: discord.Member | discord.User, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
-        """Bans a user from the server. OP+ only. Optional: [days] Specify up to 7 days of messages to delete."""
+        """Bans a user from the server. Moderator+ only. Optional: [days] Specify up to 7 days of messages to delete."""
         success_list = [f"{member} is now b&. 👍"]
         if await check_bot_or_staff(ctx, member, "ban"):
             return
@@ -123,7 +123,7 @@ class KickBan(commands.GroupCog):
                                reason: Optional[str] = None,
                                delete_messages: app_commands.Range[int, 0, 7] = 0,
                                duration: app_commands.Transform[Optional[int], TimeTransformer] = None):
-        """Bans a user from the server. OP+ only.
+        """Bans a user from the server. Moderator+ only.
 
         Args:
             member: Member to ban.
@@ -175,7 +175,7 @@ class KickBan(commands.GroupCog):
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="unban", aliases=["unyeet"])
     async def unban_member(self, ctx: GuildContext, user: discord.Member | discord.User, *, reason: Optional[str] = None):
-        """Unbans a user from the server. OP+ only."""
+        """Unbans a user from the server. Moderator+ only."""
         try:
             await ctx.guild.fetch_ban(user)
         except discord.errors.NotFound:
@@ -191,7 +191,7 @@ class KickBan(commands.GroupCog):
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="silentban", aliases=["quietyeet"])
     async def silentban_member(self, ctx: GuildContext, member: discord.Member, days: Optional[Literal[0, 1, 2, 3, 4, 5, 6, 7]] = 0, *, reason: Optional[str] = None):
-        """Bans a user from the server, without a notification. OP+ only.  Optional: [days] Specify up to 7 days of messages to delete."""
+        """Bans a user from the server, without a notification. Moderator+ only.  Optional: [days] Specify up to 7 days of messages to delete."""
         if await check_bot_or_staff(ctx, member, "ban"):
             return
 
@@ -209,7 +209,7 @@ class KickBan(commands.GroupCog):
     @commands.bot_has_permissions(ban_members=True)
     @commands.command(name="timeban", aliases=["timeyeet"])
     async def timeban_member(self, ctx: GuildContext, member: discord.Member | discord.User, length: int = commands.parameter(converter=DateOrTimeToSecondsConverter), *, reason: Optional[str] = None):
-        """Bans a user for a limited period of time. OP+ only.\n\nLength format: #d#h#m#s"""
+        """Bans a user for a limited period of time. Moderator+ only.\n\nLength format: #d#h#m#s"""
         if await check_bot_or_staff(ctx, member, "timeban"):
             return
 
@@ -241,7 +241,7 @@ class KickBan(commands.GroupCog):
     @commands.bot_has_permissions(kick_members=True)
     @commands.command(name="softban", aliases=["gentleyeet"])
     async def softban_member(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: str):
-        """Soft-ban a user. OP+ only.
+        """Soft-ban a user. Moderator+ only.
 
         This "bans" the user without actually doing a ban on Discord.
         The bot will instead kick the user every time they join.
@@ -260,7 +260,7 @@ class KickBan(commands.GroupCog):
     @is_staff("Moderator")
     @commands.command(name="unsoftban")
     async def unsoftban_member(self, ctx: GuildContext, user: discord.Member | discord.User):
-        """Un-soft-ban a user based on ID. OP+ only."""
+        """Un-soft-ban a user based on ID. Moderator+ only."""
         if user.id not in self.restrictions.softbans:
             return await ctx.send("This user is not softbanned!")
         await self.restrictions.delete_softban(user)
@@ -293,6 +293,20 @@ class KickBan(commands.GroupCog):
         await ctx.send(f"{member} is now b&. 👍")
         await self.bot.logs.post_action_log(ctx.author, member, 'ban', reason=reason)
 
+    @is_staff("Moderator")
+    @commands.command(name="banreasonchange", aliases=['brc', 'banreasonupdate'])
+    async def ban_reason_change(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: str):
+        """Update a user's ban reason based on ID. Moderator+ only."""
+
+        try:
+            await ctx.guild.fetch_ban(user)
+        except discord.errors.NotFound:
+            return await ctx.send(f"{user} is not banned!")
+
+        await ctx.guild.unban(user, reason=f"Changing ban reason to {reason}")
+        await ctx.guild.ban(user, reason=reason)
+
+        await ctx.send(f"Successfully updated {member} ({member.id})'s ban reason to {reason}!")
 
 async def setup(bot):
     await bot.add_cog(KickBan(bot))

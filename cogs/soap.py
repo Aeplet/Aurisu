@@ -45,7 +45,7 @@ class Soap(commands.Cog):
     @commands.guild_only()
     @commands.command()
     async def setsoaps(self, ctx: GuildContext, category: discord.CategoryChannel):
-        """Sets the soaps category for creating channels. OP+ only."""
+        """Sets the soaps category for creating channels. Moderator+ only."""
         await self.bot.configuration.add_channel('soaps', category)
         self.soaps_category = category
         await ctx.send("Soaps category set.")

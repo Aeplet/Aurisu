@@ -212,7 +212,7 @@ class ModWarn(commands.GroupCog):
     @is_staff("Admin")
     @commands.command()
     async def copywarns(self, ctx: GuildContext, src: discord.Member | discord.User, target: discord.Member | discord.User):
-        """Copy warns from one user ID to another. Overwrites all warns of the target user ID. SOP+ only."""
+        """Copy warns from one user ID to another. Overwrites all warns of the target user ID. SModerator+ only."""
 
         if await check_bot_or_staff(ctx, target, "warn"):
             return

@@ -128,7 +128,7 @@ class Assistance(commands.GroupCog):
     @commands.guild_only()
     @commands.command()
     async def setsmallhelp(self, ctx: GuildContext, category: discord.CategoryChannel):
-        """Sets the small help category for creating channels. OP+ only."""
+        """Sets the small help category for creating channels. Moderator+ only."""
         await self.bot.configuration.add_channel('small-help', category)
         self.small_help_category = category
         await ctx.send("Small help category set.")

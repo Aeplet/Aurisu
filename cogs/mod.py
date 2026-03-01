@@ -1012,7 +1012,7 @@ class Mod(commands.GroupCog):
                               restriction: str,
                               length: app_commands.Transform[Optional[int], TimeTransformer] = None,
                               reason: Optional[str] = None):
-        """Applies a restriction to a member. OP+ Only
+        """Applies a restriction to a member. Moderator+ Only
 
         Args:
             member: Member to apply restriction.

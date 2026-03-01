@@ -685,7 +685,7 @@ class Extras(commands.GroupCog):
                          description: str,
                          options: str = "Yes|No",
                          staff_only: bool = False):
-        """Creates a simple vote, only who made the vote can stop it. OP+ only.
+        """Creates a simple vote, only who made the vote can stop it. Moderator+ only.
 
         Args:
             name: Name of the vote.
@@ -706,7 +706,7 @@ class Extras(commands.GroupCog):
     @commands.guild_only()
     @commands.command(aliases=['stealemoji'])
     async def addemoji(self, ctx: GuildContext, name: str, emoji: discord.PartialEmoji | str, *roles: discord.Role):
-        """Add an emoji to the server. OP+ only."""
+        """Add an emoji to the server. Moderator+ only."""
         if isinstance(emoji, discord.PartialEmoji):
             emoji_bytes = await emoji.read()
         else:
