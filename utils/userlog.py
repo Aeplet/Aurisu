@@ -19,9 +19,11 @@ action_messages = {
     'silentban': ('\N{NO ENTRY}', 'Silent ban', 'banned {}'),
     'softban': ('\N{NO ENTRY}', 'Soft-ban', 'soft-banned {}'),
     'unban': ('\N{WARNING SIGN}', 'Unban', 'unbanned {}'),
+    'ban-reason-change': ('\N{NO ENTRY}', 'Changed ban reason', 'Change ban reason for {}'),
     'kick': ('\N{WOMANS BOOTS}', 'Kick', 'kicked {}'),
     'timeout': ('\N{SPEAKER WITH CANCELLATION STROKE}', 'Timeout', 'timed out {}'),
     'no-timeout': ('\N{SPEAKER}', 'Timeout Removed', 'removed a timeout from {}'),
+
     # specific role changes
     'mute': ('\N{SPEAKER WITH CANCELLATION STROKE}', 'Mute', 'muted {}'),
     'unmute': ('\N{SPEAKER}', 'Unmute', 'unmuted {}'),

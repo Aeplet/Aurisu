@@ -308,5 +308,7 @@ class KickBan(commands.GroupCog):
 
         await ctx.send(f"Successfully updated {user} ({user.id})'s ban reason to `{reason}`!")
 
+        await self.logs.post_action_log(ctx.author, user, 'ban-reason-change', reason=reason)
+
 async def setup(bot):
     await bot.add_cog(KickBan(bot))
