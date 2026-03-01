@@ -295,7 +295,7 @@ class KickBan(commands.GroupCog):
 
     @is_staff("Moderator")
     @commands.command(name="banreasonchange", aliases=['brc', 'banreasonupdate'])
-    async def ban_reason_change(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: str):
+    async def ban_reason_change(self, ctx: GuildContext, user: discord.Member | discord.User, *, reason: str):
         """Update a user's ban reason based on ID. Moderator+ only."""
 
         try:
