@@ -159,13 +159,13 @@ https://discord.gg/wxfWSmyZ3x"""
         await channel.send(self.extra)
         await ctx.send("Updated rules successfully!")
 
-    @is_staff_app("Moderator")
+    @is_staff_app("Admin")
     @app_commands.command()
     async def add_rule(self, interaction: discord.Interaction):
         """Adds or edits a current rule. Missing fields stay the same for editing rules."""
         await interaction.response.send_modal(RuleAddition())
 
-    @is_staff_app("Moderator")
+    @is_staff_app("Admin")
     @app_commands.command()
     async def delete_rule(self, interaction: discord.Interaction, number: int):
         """Deletes a rule
