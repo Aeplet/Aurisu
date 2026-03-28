@@ -115,10 +115,10 @@ class Newcomers(commands.Cog):
 
         if reason:
             if is_probation:
-                await probation.send(f'{ctx.author} (ID: {ctx.author.id}) is ready for unprobation.\n\n'
+                await probation.send(f'{ctx.author} (ID: `{ctx.author.id}`) is ready for unprobation.\n\n'
                                  f'Message: `{reason}` @here', allowed_mentions=discord.AllowedMentions(everyone=True))
             else:
-                await newcomers.send(f'{ctx.author} (ID: {ctx.author.id}) is ready for verification.\n\n'
+                await newcomers.send(f'{ctx.author} (ID: `{ctx.author.id}`) is ready for verification.\n\n'
                                  f'Message: `{reason}` @here', allowed_mentions=discord.AllowedMentions(everyone=True))
             try:
                 await ctx.author.send('✅ Online staff have been notified of your request.')
