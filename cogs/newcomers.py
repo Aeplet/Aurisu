@@ -102,26 +102,37 @@ class Newcomers(commands.Cog):
     @commands.guild_only()
     @commands.command(aliases=['ready'], cooldown=commands.CooldownMapping.from_cooldown(rate=1, per=300.0, type=commands.BucketType.member))
     async def ncready(self, ctx: GuildContext, *, reason: str = ""):
-        """Alerts online staff to a ready request in probation."""
-        newcomers = self.bot.channels['probation']
-        reason = reason[:300]  # truncate to 300 chars so kurisu doesn't send absurdly huge messages
+        """Alerts online staff to a ready request in probation or newcomers."""
+        newcomers = self.bot.channels['newcomers']
+        probation = self.bot.channels['probation']
+        reason = reason[:300]  # truncate to 300 chars so aerisu doesn't send absurdly huge messages
         reason = re.sub(r'[^\x20-\x5b\x5d-\x7f]', r'', reason)  # filter out non-ascii and backslash
         reason = discord.utils.escape_mentions(reason)  # remove all other mentions, in case escaping tricks are attempted
 
         await ctx.message.delete()
 
+        is_probation = ctx.channel == self.bot.channels['probation']
+
         if reason:
-            await newcomers.send(f'{ctx.author} (ID: {ctx.author.id}) is ready for unprobation.\n\n'
+            if is_probation:
+                await probation.send(f'{ctx.author} (ID: {ctx.author.id}) is ready for unprobation.\n\n'
+                                 f'Message: `{reason}` @here', allowed_mentions=discord.AllowedMentions(everyone=True))
+            else:
+                await newcomers.send(f'{ctx.author} (ID: {ctx.author.id}) is ready for verification.\n\n'
                                  f'Message: `{reason}` @here', allowed_mentions=discord.AllowedMentions(everyone=True))
             try:
                 await ctx.author.send('✅ Online staff have been notified of your request.')
             except discord.errors.Forbidden:
                 pass
         else:
-            await newcomers.send(f'{ctx.author.mention}, please run this command again with a brief message '
+            if is_probation:
+                await newcomers.send(f'{ctx.author.mention}, please run this command again with a brief message '
                                  'explaining your situation (e.g., `.ready hey guys, i was '
                                  'having trouble hacking my console`). **Copying and pasting '
                                  'the example will not remove your probation.**', delete_after=10)
+            else:
+                await newcomers.send(f'{ctx.author.mention}, please run this command again with a brief message '
+                                 'explaining following the instructions above.', delete_after=10)
             ctx.command.reset_cooldown(ctx)
 
     @is_staff('Admin')
