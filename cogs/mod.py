@@ -915,10 +915,10 @@ class Mod(commands.GroupCog):
         await send_dm_message(member, msg_user, ctx)
         await self.logs.post_action_log(ctx.author, member, 'no-stream', reason=reason)
 
-    @is_staff("Moderator")
+    @is_staff("Admin")
     @commands.bot_has_permissions(manage_roles=True)
     @commands.guild_only()
-    @commands.command(name="temprole", aliases=["temporaryrole", "trole"])
+    @commands.command(name="temprole", aliases=["temporaryrole", "trole", "timerole"])
     async def temprole_command(self, ctx: GuildContext, member: discord.Member, role: discord.Role, length: str = "", *, reason: Optional[str]):
         """Give a temporary role to a member. Lasts 24 hours by default."""
 
@@ -939,7 +939,7 @@ class Mod(commands.GroupCog):
         res = await self.extras.add_timed_role(member, role, expiring_time)
         if not res:
             return await ctx.send("Failed to add temporary role.")
-        await ctx.send(f"{member.mention} has been temporarily assigned role {role.id} {expiring_time_string}.")
+        await ctx.send(f"{member.mention} has been temporarily assigned role {role.id} until {expiring_time_string}.")
         # will add a log for this later
         #await self.logs.post_action_log(ctx.author, member, 'stream', reason=reason, until=expiring_time)
 
