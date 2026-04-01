@@ -259,6 +259,27 @@ class ModWarn(commands.GroupCog):
         msg = f"🗑 **Deleted warn**: {ctx.author.mention} removed warn {idx} from {member.mention} | {self.bot.escape_text(member)}"
         await self.bot.channels['mod-logs'].send(msg, embed=embed)
 
+    @is_staff("Owner")
+    @commands.command(name="delwarndb", aliases=["deldelwarn"])
+    async def delwarndb_command(self, ctx: GuildContext, member: discord.Member | discord.User, idx: commands.Range[int, 1, 5], *, reason: str):
+        """Remove a specific warn from a user in the DB. Owner only."""
+        warns = [w async for w in self.warns.get_warnings(member)]
+        if not warns:
+            await ctx.send(f"{member.mention} has no warns!")
+            return
+        warn_count = len(warns)
+        if idx > warn_count:
+            await ctx.send(f"Warn index is higher than warn count ({warn_count})!")
+            return
+        warn = warns[idx - 1]
+        issuer = await ctx.get_user(warn.issuer_id)
+        embed = discord.Embed(color=discord.Color.dark_red(), title=f"Warn {idx} on {discord.utils.snowflake_time(warn.warn_id).strftime('%Y-%m-%d %H:%M:%S')}",
+                              description=f"Issuer: {issuer.name if issuer else warn.issuer_id}\nReason: {warn.reason}")
+        await self.warns.delete_deleted_warning(warn.warn_id)
+        await ctx.send(f"{member.mention} {ordinal(idx)} warn has been removed from the database.")
+        msg = f"🗑 **Deleted warn from database**: {ctx.author.mention} removed warn {idx} from {member.mention} | {self.bot.escape_text(member)}"
+        await self.bot.channels['mod-logs'].send(msg, embed=embed)
+    
     @is_staff("Moderator")
     @commands.command()
     async def clearwarns(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: str):
