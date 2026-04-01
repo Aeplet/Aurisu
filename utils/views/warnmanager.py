@@ -39,7 +39,8 @@ class WarnManagerView(BaseLayoutView):
         self.container.add_item(WarnSelectRow(self.warns, self.deleted_warns))
 
     async def reload(self):
-        self.container.children = self.container.children[:2]
+    for child in self.container.children[2:]:
+        self.container.remove_item(child)
         self.warn_section = None
         self.warn_buttons = None
         await self.init()
