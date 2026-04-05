@@ -645,6 +645,26 @@ class Mod(commands.GroupCog):
         await ctx.send(f"{member.mention} can now speak in the dev channels again.")
         await self.logs.post_action_log(ctx.author, member, 'dev-unmute', reason=reason)
 
+    @is_staff("Moderator")
+    @commands.guild_only()
+    @commands.command(name="takereact", aliases=["noreact", "yesntreact"])
+    async def takereact(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
+        """Remove permissions to react to messages. Staff only."""
+        if await check_bot_or_staff(ctx, member, "takereact"):
+            return
+        await self.restrictions.add_restriction(member, Restriction.NoReact, reason)
+        await ctx.send(f"{member.mention} can no longer react to messages.")
+        await self.logs.post_action_log(ctx.author, member, 'no-react', reason=reason)
+
+    @is_staff("Moderator")
+    @commands.guild_only()
+    @commands.command(name="givereact", aliases=["yesreact", "nontreact"])
+    async def givereact(self, ctx: GuildContext, member: discord.Member | discord.User, *, reason: Optional[str]):
+        """Restore permissions to react to messages. Staff only."""
+        await self.restrictions.remove_restriction(member, Restriction.NoReact)
+        await ctx.send(f"{member.mention} can react to messages again.")
+        await self.logs.post_action_log(ctx.author, member, 'give-react', reason=reason)
+
     @is_staff("Helper")
     @commands.guild_only()
     @commands.command()
