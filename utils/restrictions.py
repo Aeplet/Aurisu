@@ -35,7 +35,7 @@ class Restriction(Enum):
     NoMemes = 'No-Memes'
     NoU = 'No-U'
     DevMute = 'dev-mute'
-    NoReact = 'no-react'
+    NoReact = 'No-React'
 
 
 messages = {Restriction.Muted: "You were muted!",
