@@ -263,8 +263,8 @@ class Kurisu(commands.Bot):
                 self.failed_cogs.append((extension, type(e.original).__name__, e.original))
 
     async def load_channels(self):
-        channels = ['announcements', 'rules', 'message-logs', 'meta', 'general', 'bot-cmds', 'mods', 'mod-logs', 'server-logs', 'bot-error',
-                    'probation', 'member-count-logs', 'bot-dev', 'watch-logs', 'upload-logs', 'meta', "newcomers"]
+        channels = ['announcements', 'rules', 'message-logs', 'meta', 'off-topic', 'bot-cmds', 'mods', 'mod-logs', 'server-logs', 'bot-error',
+                    'probation', 'member-count-logs', 'staff-bot-cmds', 'watch-logs', 'upload-logs', 'meta', "newcomers"]
 
         for n in channels:
             db_channel = await self.configuration.get_channel_by_name(n)
