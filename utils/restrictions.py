@@ -114,8 +114,10 @@ class RestrictionsManager(BaseManager, db_manager=RestrictionsDatabaseManager):
                                                                                         end_date=end_date,
                                                                                         alerted=False)
             
-            await user.add_roles(self.bot.roles[restriction.value])
-            if restriction is not Restriction.Ban and isinstance(user, discord.Member) and not silent:
+            
+            if restriction is not Restriction.Ban and isinstance(user, discord.Member):
+                if silent:
+                    return res
                 try:
                     appeal_site = "<@1464770820797632699>"
                     msg_user = messages[restriction]
