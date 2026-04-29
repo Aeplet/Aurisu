@@ -119,6 +119,7 @@ class RestrictionsManager(BaseManager, db_manager=RestrictionsDatabaseManager):
                 if silent:
                     return res
                 try:
+                    await user.add_roles(self.bot.roles[restriction.value])
                     appeal_site = "<@1464770820797632699>"
                     msg_user = messages[restriction]
                     if reason:
