@@ -173,9 +173,9 @@ class AutoMod(commands.GroupCog):
         rule = await action.fetch_rule()
         if not rule or not action.member:
             return
-        if rule.name == "Scams":
-            self.bot.actions.append(f"wk:{action.member.id}")
-            await action.member.kick(reason="Suspicious behavior")
+        #if rule.name == "Scams":
+            #self.bot.actions.append(f"wk:{action.member.id}")
+            #await action.member.kick(reason="Suspicious behavior")
 
     @is_staff_app('Owner')
     @app_commands.command()
