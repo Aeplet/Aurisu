@@ -181,7 +181,7 @@ class KickBan(commands.GroupCog):
         try:
             await ctx.guild.fetch_ban(user)
         except discord.errors.NotFound:
-            return await ctx.send(f"{user} ({user.id}) is not banned!")
+            return await ctx.send(f"\{user} ({user.id}) is not banned!")
 
         await self.restrictions.remove_restriction(user, Restriction.Ban)
         self.bot.actions.append(f'bu:{user.id}')
@@ -303,7 +303,7 @@ class KickBan(commands.GroupCog):
         try:
             await ctx.guild.fetch_ban(user)
         except discord.errors.NotFound:
-            return await ctx.send(f"{user} is not banned!")
+            return await ctx.send(f"\{user} ({user.id}) is not banned!")
 
         await ctx.guild.unban(user, reason=f"Changing ban reason to {reason}")
         await ctx.guild.ban(user, reason=reason)
